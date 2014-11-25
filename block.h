@@ -4,13 +4,15 @@
 #include "player.h"
 
 class AcademicBuilding;
+
 class Block {
-    static int numBuildings;
+    int numBuildings;
     AcademicBuilding *buildings[123];
 public:
+    Block(int numBuildings, AcademicBuilding *buildings[123]);
     Player *getOwner();
     void addBuilding(AcademicBuilding *ab);
-    
+    Block();
 };
 
 #endif
