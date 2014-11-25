@@ -16,6 +16,7 @@ class Building : public Tile {
 public:
     Building(string name, int purchaseCost, Player *owner);
     Player *getOwner();
+    void setOwner(Player *newOwner); // we need to be able to change the owner - jesse
     int getPurchaseCost();
     virtual int getFee() = 0;
     ~Building();
