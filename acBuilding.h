@@ -3,8 +3,7 @@
 #include <stdio.h>
 #include "building.h"
 #include <string>
-#include "block.h"
-
+class Block;
 class AcademicBuilding : public Building {
     
     Block *block;

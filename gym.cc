@@ -1,4 +1,4 @@
-#include "acBuilding.h"
+#include "gym.h"
 
 //string name;
 //int purchaseCost;

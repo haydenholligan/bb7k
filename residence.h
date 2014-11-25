@@ -5,6 +5,8 @@
 
 class Residence : public Building {
 
+public:
+    int getFee();
 };
 
 #endif 
