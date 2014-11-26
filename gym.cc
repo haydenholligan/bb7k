@@ -3,7 +3,7 @@
 
 Gym::Gym(string name, int purchaseCost) : Building(name, purchaseCost) {}
 
-int getFee() {
+int Gym::getFee() {
     
 }
 

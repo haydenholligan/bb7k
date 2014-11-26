@@ -3,7 +3,7 @@
 
 Residence::Residence(string name, int purchaseCost) : Building(name, purchaseCost) {}
 
-int getFee() {
+int Residence::getFee() {
     
 }
 
