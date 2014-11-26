@@ -1,15 +1,17 @@
 #include "player.h"
 #include "building.h"
 #include "acBuilding.h"
+#include "prng.h"
+
+Player::Player(char piece) : pos(0), piece(piece), money(1500), numResidences(0), numGyms(0), turnsInTims(0) {}
+
 
 void Player::pay(int amount) { 
   money -= amount;
-  // amount goes somewhere...
 }
 
 void Player::collect(int amount) { 
   money += amount;
-  // amount comes from somewhere...
 }
 
 void Player::move(int x) {
@@ -31,7 +33,7 @@ void Player::purchase(Building *b) {
   	money = result;
   	b->purchase(this);
   } else {
-  	// insuficient funds
+  	// insufficient funds
   }
 }
 
@@ -66,19 +68,27 @@ void Player::mortgage(Building *b) {
 }
 
 void Player::unmortgage(Building *b) { 
-
+  int cost = b->getPurchaseCost();
+  int result = money - ((cost / 2) + (0.10 * cost));
+  if (result >= 0) {
+    money = result;
+    b->unmortgage();
+  }
 }
 
 int Player::getBalance() { 
-
+  return money;
 }
 
 char Player::getPiece() { 
-
+  return piece;
 }
 
 void Player::roll() { 
+  int die1 = PRNG::prng(1,6);
+  int die2 = PRNG::prng(1,6);
 
+  move(die1 + die2);
 }
 
 void Player::skip() { 
@@ -86,17 +96,20 @@ void Player::skip() {
 }
 
 void Player::goToTims() { 
-
+  moveTo(10); // 10th tile is DC Tims Line
+  turnsInTims++;
 }
 
-void Player::geeseAttack() { 
-
+bool Player::tryToLeaveTims() { 
+  if (turnsInTims >= 4) {
+    turnsInTims = 0;
+    roll();
+  } else {
+    turnsInTims++;
+    // stuck in Tims for this turn
+  }
+  // player can also use rollup cup to escape Tims
+  // TODO
 }
 
-void Player::leaveTims() { 
 
-}
-
-void Player::useRollupCup() { 
-
-}

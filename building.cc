@@ -15,6 +15,10 @@ int Building::mortgage() {
 	return purchaseCost / 2;
 }
 
+void Building::unmortgage() {
+	mortgaged = false;
+}
+
 void Building::purchase(Player *newOwner) {
 	owner = newOwner;
 }

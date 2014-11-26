@@ -17,7 +17,8 @@ public:
 	Building(string name, int purchaseCost);
     Player *getOwner();
     int getPurchaseCost();
-    int mortgage(); 
+    int mortgage();
+    void unmortgage();
     virtual int getFee() = 0;
     virtual void purchase(Player *newOwner);
 };

@@ -11,8 +11,9 @@ class Player {
     int money;
     int numResidences;
     int numGyms;
-
+    int turnsInTims;
 public:
+    Player(char piece);
     void pay(int amount);
     void collect(int amount);
     void move(int x);
@@ -30,8 +31,6 @@ public:
     void roll();
     void skip();
     void goToTims();
-    void geeseAttack();
-    void leaveTims();
-    void useRollupCup();
+    void tryToLeaveTims();;
 };
 #endif
