@@ -47,11 +47,11 @@ void Player::improve(AcademicBuilding *ab) {
 	}
 }
 
-int Player::addResidence() {
+void Player::addResidence() {
 	numResidences++;
 }
 
-int Player::addGym() {
+void Player::addGym() {
 	numGyms++;
 }
 
