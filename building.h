@@ -9,6 +9,7 @@ using namespace std;
 class Player; // forward declaration
 
 class Building : public Tile {
+protected:
     string name;
     int purchaseCost;
     bool mortgaged;
