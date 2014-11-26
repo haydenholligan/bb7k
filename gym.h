@@ -3,11 +3,12 @@
 #include <stdio.h>
 #include "building.h"
 
-class Gym : Building{
+class Gym : Building {
 
 public:
-    Gym(string name, int purchaseCost, Player *owner);
+    Gym(string name, int purchaseCost);
     int getFee();
+    void purchase(Player *newOwner);
     ~Gym();
 };
 

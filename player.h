@@ -12,10 +12,14 @@ class Player {
     int numResidences;
     int numGyms;
 
-    public:
+public:
+    void pay(int amount);
+    void collect(int amount);
     void move(int x);
     void moveTo(int newPos);
     void purchase(Building *b);
+    void addResidence();
+    void addGym();
     void improve(AcademicBuilding *ab);
     int getNumResidences();
     int getNumGyms();
@@ -26,8 +30,6 @@ class Player {
     void roll();
     void skip();
     void goToTims();
-    void pay(int amount);
-    void collect(int amount);
     void geeseAttack();
     void leaveTims();
     void useRollupCup();

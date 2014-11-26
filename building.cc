@@ -1,19 +1,20 @@
 #include "building.h"
 
-Building::Building(string name, int purchaseCost, Player *owner) : name(name), purchaseCost(purchaseCost), owner(owner) {}
+Building::Building(string name, int purchaseCost) : name(name), purchaseCost(purchaseCost), owner(NULL), mortgaged(false) {}
 
-//string name;
-//int purchaseCost;
-//Player *owner = NULL;
-
-Player *getOwner() {
-    
+Player* Building::getOwner() {
+    return owner;
 }
 
-int getPurchaseCost() {
-    
+int Building::getPurchaseCost() {
+    return purchaseCost;
 }
 
-int getFee() {
-    
+int Building::mortgage() {
+	mortgaged = true;
+	return purchaseCost / 2;
+}
+
+void Building::purchase(Player *newOwner) {
+	owner = newOwner;
 }

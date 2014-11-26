@@ -9,11 +9,15 @@ class Block;
 class AcademicBuilding : public Building {
     
     Block *block;
+    int improveCost;
     int numImproves;
     int tuition[6];
 public:
-    AcademicBuilding(string name, int purchaseCost, Player *owner, Block *block, int numImproves, int tuition[6]);
+    AcademicBuilding(string name, int purchaseCost, int improveCost, Block *block, int tuition[6]);
     int getFee();
+    int getImproveCost();
+    void improve();
+    int mortgage();
     ~AcademicBuilding();
 };
 

@@ -3,23 +3,23 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
-#include "player.h"
 #include "tile.h"
-#include "block.h"
-
 using namespace std;
+
+class Player; // forward declaration
 
 class Building : public Tile {
     string name;
     int purchaseCost;
-    Player *owner = NULL;
+    bool mortgaged;
+    Player *owner;
 public:
-    Building(string name, int purchaseCost, Player *owner);
+	Building(string name, int purchaseCost);
     Player *getOwner();
-    void setOwner(Player *newOwner); // we need to be able to change the owner - jesse
     int getPurchaseCost();
+    int mortgage(); 
     virtual int getFee() = 0;
-    ~Building();
+    virtual void purchase(Player *newOwner);
 };
 
 #endif
