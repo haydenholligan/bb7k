@@ -2,6 +2,7 @@
 #include "building.h"
 #include "acBuilding.h"
 #include "prng.h"
+#include "board.h"
 
 Player::Player(char piece) : pos(0), piece(piece), money(1500), numResidences(0), numGyms(0), turnsInTims(0) {}
 
@@ -85,10 +86,7 @@ char Player::getPiece() {
 }
 
 void Player::roll() { 
-  int die1 = PRNG::prng(1,6);
-  int die2 = PRNG::prng(1,6);
-
-  move(die1 + die2);
+  move(Board::roll());
 }
 
 void Player::skip() { 
@@ -100,7 +98,7 @@ void Player::goToTims() {
   turnsInTims++;
 }
 
-bool Player::tryToLeaveTims() { 
+void Player::tryToLeaveTims() { 
   if (turnsInTims >= 4) {
     turnsInTims = 0;
     roll();

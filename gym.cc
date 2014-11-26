@@ -4,7 +4,7 @@
 Gym::Gym(string name, int purchaseCost) : Building(name, purchaseCost) {}
 
 int Gym::getFee() {
-    
+	
 }
 
 void Gym::purchase(Player *newOwner) {
