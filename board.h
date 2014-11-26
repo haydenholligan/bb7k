@@ -12,6 +12,8 @@ class Board {
     Player *players[123];
     Player *rollUp[4];
 public:
+    Board();
+    static int roll();
     void loadGame(string file);
     void saveGame(string file);
     Player *nextPlayer();
