@@ -1,13 +1,12 @@
 #include "gym.h"
 #include "player.h"
+#include "board.h"
 
 Gym::Gym(string name, int purchaseCost) : Building(name, purchaseCost) {}
 
 int Gym::getFee() {
-<<<<<<< HEAD
-    int die1 = PRNG::prng(1,6);
-    int die2 = PRNG::prng(1,6);
-    int sum = die1+die2;
+
+    int sum = Board::roll();
     int numGyms = Building::getOwner()->getNumGyms();
     
     if (numGyms == 1) {
@@ -17,9 +16,7 @@ int Gym::getFee() {
         return sum * 10;
     }
     return 0;
-=======
-	
->>>>>>> FETCH_HEAD
+
 }
 
 void Gym::purchase(Player *newOwner) {
