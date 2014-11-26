@@ -1,4 +1,5 @@
 #include "gym.h"
+#include "player.h"
 
 Gym::Gym(string name, int purchaseCost) : Building(name, purchaseCost) {}
 
@@ -7,6 +8,6 @@ int getFee() {
 }
 
 void Gym::purchase(Player *newOwner) {
-	Buidling::purchase(newOwner);
-	newOwner->incGyms();
+	Building::purchase(newOwner);
+	newOwner->addGym();
 }
