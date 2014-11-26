@@ -1,7 +1,14 @@
 #include "acBuilding.h"
 
-AcademicBuilding::AcademicBuilding(string name, int purchaseCost, Block *block, int numImproves, int tuition[6]) : Building(name, purchaseCost, owner), block(block), numImproves(numImproves), tuition() {}
-//check tuition initialization for correctness
+AcademicBuilding::AcademicBuilding(string name, int purchaseCost, Block *block, int tuition[6]) : Building(name, purchaseCost), block(block), numImproves(0) {}
+
+void setTuition(int l1, int l2, int l3, int l4, int l5) {
+	tuition[0] = l1;
+	tuition[1] = l2;
+	tuition[2] = l3;
+	tuition[3] = l4;
+	tuition[4] = l5;
+}
 
 int AcademicBuilding::getFee() {
     
