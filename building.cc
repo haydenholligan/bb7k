@@ -22,3 +22,4 @@ void Building::unmortgage() {
 void Building::purchase(Player *newOwner) {
 	owner = newOwner;
 }
+

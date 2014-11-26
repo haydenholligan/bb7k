@@ -12,7 +12,7 @@ void AcademicBuilding::setTuition(int l0, int l1, int l2, int l3, int l4, int l5
 }
 
 int AcademicBuilding::getFee() {
-    
+    return tuition[numImproves];
 }
 
 int AcademicBuilding::getImproveCost() {
