@@ -135,7 +135,7 @@ void Board::saveGame(string file) {
 }
 
 Player *Board::nextPlayer() {
-
+    return NULL;
 }
 
 bool Board::giveRollupCup(Player *p) {

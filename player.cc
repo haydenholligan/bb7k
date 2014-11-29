@@ -6,19 +6,12 @@
 
 Player::Player(char piece) : pos(0), piece(piece), money(1500), numResidences(0), numGyms(0), turnsInTims(0), netWorth(1500) {}
 
-void Player::pay(int amount) { 
-  money -= amount;
-}
-
-void Player::collect(int amount) { 
-  money += amount;
-}
-
 void Player::move(int x) {
   int newPos = pos + x;
   if (newPos >= 40) {
     newPos -= 40;
-    collect(200); // pass collect OSAP
+      money +=200;
+      netWorth +=200;
   }
     if (newPos < 0) {
         newPos +=40;
@@ -49,7 +42,7 @@ void Player::improve(AcademicBuilding *ab) {
 }
 
 void Player::unimprove(AcademicBuilding *ab) {
-    
+    //make sure to calculate net worth
 }
 
 void Player::addResidence() {
@@ -68,15 +61,20 @@ int Player::getNumGyms() {
 	return numGyms;
 }
 
-void Player::mortgage(Building *b) { 
-	money += b->mortgage();
+void Player::mortgage(Building *b) {
+    int mortgageVal = b->mortgage();
+    money += mortgageVal;
+    netWorth += mortgageVal;
 }
 
 void Player::unmortgage(Building *b) { 
   int cost = b->getPurchaseCost();
-  int result = money - ((cost / 2) + (0.10 * cost));
+
+  int price = (cost / 2) + (0.10 * cost);
+  int result = money - price;
   if (result >= 0) {
     money = result;
+    netWorth -=price;
     b->unmortgage();
   }
 }
@@ -110,7 +108,8 @@ void Player::tryToLeaveTims() {
     turnsInTims++;
     // stuck in Tims for this turn
   }
-  // player can also use rollup cup to escape Tims
+  // player can also use rollup cup or pay money to escape Tims
+  //adjust net worth
   // TODO
 }
 
@@ -119,9 +118,10 @@ void Player::payTution() {
     int x;
     if (x==0) {
         money -=300;
+        netWorth -=300;
     }
     else if (x==1) {
-        
+        //adjust money and networth
     }
 }
 
@@ -170,24 +170,31 @@ void Player::NeedlesHall() {
         
         if (rand18 == 1) {
             money -=200;
+            netWorth -=200;
         }
         else if (rand18 >= 2 && rand18 <= 3) {
             money -=100;
+            netWorth -=100;
         }
         else if (rand18 >= 4 && rand18 <= 6) {
             money -=50;
+            netWorth -=50;
         }
         else if (rand18 >= 7 && rand18 <= 12) {
             money +=25;
+            netWorth +=25;
         }
         else if (rand18 >= 13 && rand18 <= 15) {
             money +=50;
+            netWorth +=50;
         }
         else if (rand18 >= 16 && rand18 <= 17) {
             money +=100;
+            netWorth +=100;
         }
         else if (rand18 == 18) {
             money +=200;
+            netWorth +=200;
         }
     }
 }

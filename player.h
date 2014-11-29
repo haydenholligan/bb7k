@@ -17,8 +17,6 @@ class Player {
     //Building *buildings[29];
 public:
     Player(char piece);
-    void pay(int amount);
-    void collect(int amount);
     void move(int x);
     void purchase(Building *b);
     void addResidence();
