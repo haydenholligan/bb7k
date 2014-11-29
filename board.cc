@@ -9,6 +9,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include "vector.h"
 
 Board::Board() {
 	numPlayers = 0;
@@ -120,11 +121,93 @@ Board::Board() {
 	board[38] = new Tile(38, "COOP FEE");
 	board[39] = DC;
 
+    propList[0] = {-1, -1};
+    propList[1] = {73, 51};
+    propList[2] = {-1, -1};
+    propList[3] = {57, 51};
+    propList[4] = {-1, -1};
+    propList[5] = {-1, -1};
+    propList[6] = {33, 51};
+    propList[7] = {-1, -1};
+    propList[8] = {17, 51};
+    propList[9] =  {9, 51};
+    propList[10] = {-1, -1};
+    propList[11] = {1, 46};
+    propList[12] = {-1, -1};
+    propList[13] = {1, 36};
+    propList[14] = {1, 31};
+    propList[15] = {-1, -1};
+    propList[16] = {1, 21};
+    propList[17] = {-1, -1};
+    propList[18] = {1, 11};
+    propList[19] = {1, 6};
+    propList[20] = {-1, -1};
+    propList[21] = {9, 1};
+    propList[22] = {-1, -1};
+    propList[23] = {25, 1};
+    propList[24] = {33, 1};
+    propList[25] = {-1, -1};
+    propList[26] = {49, 1};
+    propList[27] = {57, 1};
+    propList[28] = {-1, -1};
+    propList[29] = {73, 1};
+    propList[30] = {-1, -1};
+    propList[31] = {81, 6};
+    propList[32] = {81, 11};
+    propList[33] = {-1, -1};
+    propList[34] = {81, 21};
+    propList[35] = {-1, -1};
+    propList[36] = {-1, -1};
+    propList[37] = {81, 36};
+    propList[38] = {-1, -1};
+    propList[39] = {81, 46};
+    
+    coordList[0] = {81, 54};
+    coordList[1] = {73, 54};
+    coordList[2] = {65, 54};
+    coordList[3] = {57, 54};
+    coordList[4] = {49, 54};
+    coordList[5] = {41, 54};
+    coordList[6] = {33, 54};
+    coordList[7] = {25, 54};
+    coordList[8] = {17, 54};
+    coordList[9] =  {9, 54};
+    coordList[10] = {1, 54};
+    coordList[11] = {1, 49};
+    coordList[12] = {1, 44};
+    coordList[13] = {1, 39};
+    coordList[14] = {1, 34};
+    coordList[15] = {1, 29};
+    coordList[16] = {1, 24};
+    coordList[17] = {1, 19};
+    coordList[18] = {1, 14};
+    coordList[19] =  {1, 9};
+    coordList[20] =  {1, 4};
+    coordList[21] =  {9, 4};
+    coordList[22] =  {17, 4};
+    coordList[23] =  {25, 4};
+    coordList[24] =  {33, 4};
+    coordList[25] =  {41, 4};
+    coordList[26] =  {49, 4};
+    coordList[27] =  {57, 4};
+    coordList[28] =  {65, 4};
+    coordList[29] =  {73, 4};
+    coordList[30] =  {81, 4};
+    coordList[31] =  {81, 9};
+    coordList[32] =  {81, 14};
+    coordList[33] =  {81, 19};
+    coordList[34] =  {81, 24};
+    coordList[35] =  {81, 29};
+    coordList[36] =  {81, 34};
+    coordList[37] =  {81, 44};
+    coordList[38] =  {81, 49};
+    coordList[39] =  {81, 54};
+
 	// fuck yea
 	for (int i = 0; i < 4; i++) {
 		rollUp[i] = NULL;
 	}
-
+    
 }
 
 void Board::addPlayer(char piece) {
@@ -196,7 +279,7 @@ void Board::reDraw() {
     tmpArr[24] = "|       |                                                                       |       |";
     tmpArr[25] = "|-------|                                                                       |-------|";
     tmpArr[26] = "|UWP    |                             bb7k                                      |REV    |";
-    tmpArr[27] = "|       |                                                                       |       |";
+    tmpArr[27] = "|       |                        ty asad bless u                                |       |";
     tmpArr[28] = "|       |                                                                       |       |";
     tmpArr[29] = "|       |                                                                       |       |";
     tmpArr[30] = "|-------|                                                                       |-------|";
@@ -260,6 +343,10 @@ Tile* Board::getTile(int pos) {
 	return board[pos];
 }
 
+void init() {
+
+    
+}
 
 
 

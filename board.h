@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "tile.h"
 #include "player.h"
+#include "vector.h"
 #include <string>
 #include <iostream>
 using namespace std;
@@ -13,6 +14,8 @@ class Board {
     Player *players[6];
     Player *rollUp[4];
 	int iterator;
+    Vector propList[40];
+    Vector coordList[40];
 public:
     Board();
 	Tile* getTile(string name);
@@ -25,6 +28,7 @@ public:
     bool giveRollupCup(Player *p);
     void reDraw();
     void exec(string command);
+    void init();
 };
 
 #endif 
