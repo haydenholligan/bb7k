@@ -17,7 +17,6 @@ public:
     void pay(int amount);
     void collect(int amount);
     void move(int x);
-    void moveTo(int newPos);
     void purchase(Building *b);
     void addResidence();
     void addGym();
@@ -31,6 +30,8 @@ public:
     void roll();
     void skip();
     void goToTims();
-    void tryToLeaveTims();;
+    void tryToLeaveTims();
+    void SLC();
+    void NeedlesHall();
 };
 #endif

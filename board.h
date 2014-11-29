@@ -17,9 +17,8 @@ public:
     void loadGame(string file);
     void saveGame(string file);
     Player *nextPlayer();
-    void giveRollupCup(Player *p);
-    void SLC(Player *p);
-    void NeedlesHall(Player *p);
+    bool giveRollupCup(Player *p);
+    
     void reDraw();
     void exec(string command);
 };

@@ -25,20 +25,14 @@ void Board::saveGame(string file) {
 
 Player *Board::nextPlayer();
 
-void Board::giveRollupCup(Player *p) {
+bool Board::giveRollupCup(Player *p) {
     for (int i = 0; i < 4; i++) {
         if (rollUp[i] == NULL) {
             rollUp[i] = p;
+            return true;
         }
     }
-}
-
-void Board::SLC(Player *p) {
-    
-}
-
-void Board::NeedlesHall(Player *p) {
-    
+    return false;
 }
 
 void Board::reDraw() {

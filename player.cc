@@ -24,10 +24,6 @@ void Player::move(int x) {
   pos = newPos;
 }
 
-void Player::moveTo(int newPos) {
-  pos = newPos;
-}
-
 void Player::purchase(Building *b) { 
   int result = money - b->getPurchaseCost();
   if (result >= 0) {
@@ -94,7 +90,7 @@ void Player::skip() {
 }
 
 void Player::goToTims() { 
-  moveTo(10); // 10th tile is DC Tims Line
+  pos = 10; // 10th tile is DC Tims Line
   turnsInTims++;
 }
 
@@ -109,5 +105,24 @@ void Player::tryToLeaveTims() {
   // player can also use rollup cup to escape Tims
   // TODO
 }
+
+void Player::SLC() {
+    int oldPos = pos;
+    int newPos = rand() % 39;
+    int numMoved;
+    
+    if (oldPos < newPos) {
+        numMoved = newPos - oldPos;
+        move (newPos);
+    }
+    else if (oldPos >= pos) {
+        
+    }
+}
+
+void Player::NeedlesHall() {
+    
+}
+
 
 
