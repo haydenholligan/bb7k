@@ -1,6 +1,9 @@
 #include "acBuilding.h"
+#include "block.h"
 
-AcademicBuilding::AcademicBuilding(string name, int purchaseCost, int improveCost, Block *block) : Building(name, purchaseCost),  improveCost(improveCost), block(block), numImproves(0) {}
+AcademicBuilding::AcademicBuilding(string name, int purchaseCost, int improveCost, Block *block) : Building(name, purchaseCost),  improveCost(improveCost), block(block), numImproves(0) {
+	block->addBuilding(this);
+}
 
 void AcademicBuilding::setTuition(int l0, int l1, int l2, int l3, int l4, int l5) {
 	tuition[0] = l0;
