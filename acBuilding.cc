@@ -1,7 +1,7 @@
 #include "acBuilding.h"
 #include "block.h"
 
-AcademicBuilding::AcademicBuilding(string name, int purchaseCost, int improveCost, Block *block) : Building(name, purchaseCost),  improveCost(improveCost), block(block), numImproves(0) {
+AcademicBuilding::AcademicBuilding(int index, string name, int purchaseCost, int improveCost, Block *block) : Building(index, name, purchaseCost),  improveCost(improveCost), block(block), numImproves(0) {
 	block->addBuilding(this);
 }
 

@@ -2,7 +2,7 @@
 #include "player.h"
 #include "board.h"
 
-Gym::Gym(string name, int purchaseCost) : Building(name, purchaseCost) {}
+Gym::Gym(int index,string name, int purchaseCost) : Building(index, name, purchaseCost) {}
 
 int Gym::getFee() {
 

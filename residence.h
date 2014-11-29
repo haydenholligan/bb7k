@@ -6,7 +6,7 @@
 class Residence : public Building {
 
 public:
-    Residence(string name, int purchaseCost);
+    Residence(int index, string name, int purchaseCost);
     int getFee();
     void purchase(Player *newOwner);
     ~Residence();

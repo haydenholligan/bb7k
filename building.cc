@@ -1,6 +1,6 @@
 #include "building.h"
 
-Building::Building(string name, int purchaseCost) : name(name), purchaseCost(purchaseCost), owner(NULL), mortgaged(false) {}
+Building::Building(int index, string name, int purchaseCost) : Tile(index, name), purchaseCost(purchaseCost), owner(NULL), mortgaged(false) {}
 
 Player* Building::getOwner() {
     return owner;

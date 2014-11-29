@@ -14,7 +14,7 @@ protected:
     bool mortgaged;
     Player *owner;
 public:
-	Building(string name, int purchaseCost);
+	Building(int index, string name, int purchaseCost);
     Player *getOwner();
     int getPurchaseCost();
     int mortgage();

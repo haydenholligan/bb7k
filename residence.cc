@@ -2,7 +2,7 @@
 #include "player.h"
 #include <cmath>
 
-Residence::Residence(string name, int purchaseCost) : Building(name, purchaseCost) {}
+Residence::Residence(int index, string name, int purchaseCost) : Building(index, name, purchaseCost) {}
 
 int Residence::getFee() {
     int numRes = Building::getOwner()->getNumResidences();
