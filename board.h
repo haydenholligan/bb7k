@@ -17,7 +17,7 @@ public:
     void loadGame(string file);
     void saveGame(string file);
     Player *nextPlayer();
-    bool giveRollupCup(Player *p);
+    static bool giveRollupCup(Player *p);
     
     void reDraw();
     void exec(string command);
