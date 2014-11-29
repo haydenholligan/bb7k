@@ -11,7 +11,7 @@ void Block::addBuilding(AcademicBuilding *ab) {
 }
 
 bool Block::isMonopoly() {
-    if (buildings[0]->owner == buildings[1]->owner) {
+    if (buildings[0]->getOwner()->getPiece() == buildings[1]->getOwner()->getPiece) {
         
     }
 }
