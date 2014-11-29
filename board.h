@@ -15,6 +15,7 @@ class Board {
 	int iterator;
 public:
     Board();
+	Tile* getTile(string name);
 	void addPlayer(char piece);
     static int roll();
     void loadGame(string file);

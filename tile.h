@@ -8,6 +8,7 @@ class Tile {
 	string name;
 public:
 	Tile(int index, string name);
+	string getName();
 };
 
 #endif

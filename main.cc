@@ -17,7 +17,43 @@ void takeInput() {
 
 }
 
+void takeTurn(Board *b, Player *p) {
+	cout << "-----Player " << p->getPiece() << "'s turn----" << endl;
+	string first;
+	cin >> first;
 
+	// command interpreter
+	if (first == "roll") {
+		p->roll();
+		// take action on square they land on
+	}
+	else if (first == "next") {
+		return;
+	}
+	else if (first == "trade") {
+		// TODO
+	}
+	else if (first == "improve") {
+		string propertyName, buyorsell;
+		cin >> propertyName;
+		cin >> buyorsell;
+		AcademicBuilding *ab = (AcademicBuilding *) b->getTile(propertyName);
+		if (buyorsell == "buy") p->improve(ab);
+		if (buyorsell == "sell") p->unimprove(ab);
+	}
+	else if (first == "mortgage") {
+		string propertyName;
+		cin >> propertyName;
+		Building *building = (Building *) b->getTile(propertyName);
+		p->mortgage(building);
+	}
+	else if (first == "unmortgage") {
+		string propertyName;
+		cin >> propertyName;
+		Building *building = (Building *) b->getTile(propertyName);
+		p->unmortgage(building);
+	}
+}
 
 int main() {
 
@@ -39,6 +75,7 @@ int main() {
 
 	typedef map<char, string>::iterator it;
 
+	// Players choose pieces here
 	for (int i = 0; i < n; i++) {
 		cout << "---Available pieces---" << endl;
 		for (it iterator = pieces.begin(); iterator != pieces.end(); iterator++) {
@@ -56,5 +93,10 @@ int main() {
 		}
 	}
 
+	while (true) { // stop loop, TODO
+		// Players turn
+		Player *player = board.nextPlayer();
+		takeTurn(&board, player);
+	}
 	
 }

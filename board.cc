@@ -247,6 +247,14 @@ void Board::exec(string command) {
     
 }
 
+Tile* Board::getTile(string name) {
+	for (int i = 0; i < 39; i++) {
+		if (board[i]->getName() == name) {
+			return board[i];
+		}
+	}
+	return NULL;
+}
 
 
 

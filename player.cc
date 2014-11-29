@@ -19,6 +19,7 @@ void Player::move(int x) {
         newPos +=40;
     }
   pos = newPos;
+  cout << "PLAYER MOVED TO TILE " << pos << endl;
 }
 
 void Player::purchase(Building *b) { 
@@ -41,6 +42,10 @@ void Player::improve(AcademicBuilding *ab) {
 	} else {
 		// insufficient funds
 	}
+}
+
+void Player::unimprove(AcademicBuilding *ab) {
+
 }
 
 void Player::addResidence() {
