@@ -22,7 +22,6 @@ public:
     void addResidence();
     void addGym();
     void improve(AcademicBuilding *ab);
-    void unimprove(AcademicBuilding *ab);
     int getNumResidences();
     int getNumGyms();
     void mortgage(Building *b);

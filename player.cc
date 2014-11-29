@@ -41,10 +41,6 @@ void Player::improve(AcademicBuilding *ab) {
 	}
 }
 
-void Player::unimprove(AcademicBuilding *ab) {
-    //make sure to calculate net worth
-}
-
 void Player::addResidence() {
 	numResidences++;
 }
