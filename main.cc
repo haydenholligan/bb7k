@@ -12,7 +12,8 @@
 using namespace std;
 
 void takeInput() {
-    
+
+
 }
 
 

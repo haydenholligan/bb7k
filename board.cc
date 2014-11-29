@@ -6,6 +6,9 @@
 #include "gym.h"
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
+#include <sstream>
+#include <string>
 
 Board::Board(int numPlayers) : numPlayers(numPlayers) {
 	srand(time(NULL)); // init random number generator
@@ -155,11 +158,50 @@ bool Board::giveRollupCup(Player *p) {
 
 void Board::reDraw() {
     
+    int boardArr[88][56];
+    
+    //initialization
+    string tmpArr[56];
+    tmpArr[0] = "----------------------------------------------------------------------------------------";
+    tmpArr[1] = "|       |       |       |       |       |       |       |       |       |       |       |";
+    tmpArr[2] = "|       |       |       |       |       |       |       |       |       |       |       |";
+    tmpArr[3] = "|       |       |       |       |       |       |       |       |       |       |       |";
+    tmpArr[4] = "|       |       |       |       |       |       |       |       |       |       |       |";
+    tmpArr[5] = "|       |       |       |       |       |       |       |       |       |       |       |";
+    //array of strings
+    //write loop, in loop iterate strings
+    //convert each string into stringstream
+    //output stringstream into character
+    //set character equal to array position
+    
+    
+    //print
+    for (int i = 0; i < 87; i++) {
+        for (int j = 0; j < 55; j++) {
+            
+        }
+    }
+    
+    
+    
+    
+    
 }
 
 void Board::exec(string command) {
     
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
