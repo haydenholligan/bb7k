@@ -1,3 +1,3 @@
 #include "tile.h"
 
-Tile::Tile(string name) : name(name) {}
+Tile::Tile(int index, string name) : index(index), name(name) {}
