@@ -157,31 +157,93 @@ bool Board::giveRollupCup(Player *p) {
 }
 
 void Board::reDraw() {
+    char boardArr[89][56];
     
-    int boardArr[88][56];
-    
-    //initialization
-    string tmpArr[56];
-    tmpArr[0] = "----------------------------------------------------------------------------------------";
-    tmpArr[1] = "|       |       |       |       |       |       |       |       |       |       |       |";
-    tmpArr[2] = "|       |       |       |       |       |       |       |       |       |       |       |";
-    tmpArr[3] = "|       |       |       |       |       |       |       |       |       |       |       |";
-    tmpArr[4] = "|       |       |       |       |       |       |       |       |       |       |       |";
-    tmpArr[5] = "|       |       |       |       |       |       |       |       |       |       |       |";
-    //array of strings
-    //write loop, in loop iterate strings
-    //convert each string into stringstream
-    //output stringstream into character
-    //set character equal to array position
-    
-    
-    //print
-    for (int i = 0; i < 87; i++) {
+    for (int i = 0; i < 88; i++) {
         for (int j = 0; j < 55; j++) {
-            
+            boardArr[i][j] = ' ';
         }
     }
     
+    string tmpArr[56];
+    tmpArr[0] = "-----------------------------------------------------------------------------------------";
+    tmpArr[1] = "|Goose  |       |NEEDLES|       |       |V1     |       |       |CIF    |       |GO TO  |";
+    tmpArr[2] = "|Nesting|-------|HALL   |-------|-------|       |-------|-------|       |-------|TIMS   |";
+    tmpArr[3] = "|       |EV1    |       |EV2    |EV3    |       |PHYS   |B1     |       |B2     |       |";
+    tmpArr[4] = "|       |       |       |       |       |       |       |       |       |       |       |";
+    tmpArr[5] = "|-------|-----------------------------------------------------------------------|-------|";
+    tmpArr[6] = "|       |                                                                       |       |";
+    tmpArr[7] = "|-------|                                                                       |-------|";
+    tmpArr[8] = "|OPT    |                                                                       |EIT    |";
+    tmpArr[9] = "|       |                                                                       |       |";
+    tmpArr[10] = "|-------|                                                                       |-------|";
+    tmpArr[11] = "|       |                                                                       |       |";
+    tmpArr[12] = "|-------|                                                                       |-------|";
+    tmpArr[13] = "|BMH    |                                                                       |ESC    |";
+    tmpArr[14] = "|       |                                                                       |       |";
+    tmpArr[15] = "|-------|                                                                       |-------|";
+    tmpArr[16] = "|SLC    |                                                                       |SLC    |";
+    tmpArr[17] = "|       |                                                                       |       |";
+    tmpArr[18] = "|       |                                                                       |       |";
+    tmpArr[19] = "|       |                                                                       |       |";
+    tmpArr[20] = "|-------|                                                                       |-------|";
+    tmpArr[21] = "|       |                                                                       |       |";
+    tmpArr[22] = "|-------|                                                                       |-------|";
+    tmpArr[23] = "|LHI    |                                                                       |C2     |";
+    tmpArr[24] = "|       |                                                                       |       |";
+    tmpArr[25] = "|-------|                                                                       |-------|";
+    tmpArr[26] = "|UWP    |                             bb7k                                      |REV    |";
+    tmpArr[27] = "|       |                                                                       |       |";
+    tmpArr[28] = "|       |                                                                       |       |";
+    tmpArr[29] = "|       |                                                                       |       |";
+    tmpArr[30] = "|-------|                                                                       |-------|";
+    tmpArr[31] = "|       |                                                                       |NEEDLES|";
+    tmpArr[32] = "|-------|                                                                       |HALL   |";
+    tmpArr[33] = "|CPH    |                                                                       |       |";
+    tmpArr[34] = "|       |                                                                       |       |";
+    tmpArr[35] = "|-------|                                                                       |-------|";
+    tmpArr[36] = "|       |                                                                       |       |";
+    tmpArr[37] = "|-------|                                                                       |-------|";
+    tmpArr[38] = "|DWE    |                                                                       |MC     |";
+    tmpArr[39] = "|       |                                                                       |       |";
+    tmpArr[40] = "|-------|                                                                       |-------|";
+    tmpArr[41] = "|PAC    |                                                                       |COOP   |";
+    tmpArr[42] = "|       |                                                                       |FEE    |";
+    tmpArr[43] = "|       |                                                                       |       |";
+    tmpArr[44] = "|       |                                                                       |       |";
+    tmpArr[45] = "|-------|                                                                       |-------|";
+    tmpArr[46] = "|       |                                                                       |       |";
+    tmpArr[47] = "|-------|                                                                       |-------|";
+    tmpArr[48] = "|RCH    |                                                                       |DC     |";
+    tmpArr[49] = "|       |                                                                       |       |";
+    tmpArr[50] = "|-------|-----------------------------------------------------------------------|-------|";
+    tmpArr[51] = "|DC Tims|       |       |NEEDLES|       |MKV    |TUITION|       |SLC    |       |COLLECT|";
+    tmpArr[52] = "|Line   |-------|-------|HALL   |-------|       |       |-------|       |-------|OSAP   |";
+    tmpArr[53] = "|       |HH     |PAS    |       |ECH    |       |       |ML     |       |AL     |       |";
+    tmpArr[54] = "|       |       |       |       |       |       |       |       |       |       |       |";
+    tmpArr[55] = "-----------------------------------------------------------------------------------------";
+    
+    for (int a = 0; a < 56; a++) {
+        string s = tmpArr[a];
+        for (int i = 0; i < 89; i++) {
+            boardArr[i][a] = s[i];
+        }
+    }
+    
+    for (int i = 0; i < 56; i++) {
+        for (int j = 0; j < 89; j++) {
+            cout << boardArr[j][i];
+        }
+        cout << endl;
+    }
+
+}
+
+
+
+
+
+
     
     
     
