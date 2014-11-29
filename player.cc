@@ -109,15 +109,11 @@ void Player::tryToLeaveTims() {
 void Player::SLC() {
     int oldPos = pos;
     int newPos = rand() % 39;
-    int numMoved;
-    
-    if (oldPos < newPos) {
-        numMoved = newPos - oldPos;
-        move (newPos);
+    int numMoved = newPos - oldPos;
+    if (numMoved < 0) {
+        numMoved +=39;
     }
-    else if (oldPos >= pos) {
-        
-    }
+    move(numMoved);
 }
 
 void Player::NeedlesHall() {
