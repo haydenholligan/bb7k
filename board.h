@@ -10,7 +10,7 @@ using namespace std;
 class Board {
     Tile *board[40];
     Player *players[123];
-    Player *rollUp[4];
+    static Player *rollUp[4];
 public:
     Board();
     static int roll();
