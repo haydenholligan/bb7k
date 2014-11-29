@@ -14,7 +14,7 @@ class Board {
     Player *rollUp[4];
 	int iterator;
 public:
-    Board(int numPlayers);
+    Board();
 	void addPlayer(char piece);
     static int roll();
     void loadGame(string file);

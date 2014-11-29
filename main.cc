@@ -9,6 +9,7 @@
 #include "acBuilding.h"
 #include "gym.h"
 #include "residence.h"
+#include <map>
 using namespace std;
 
 void takeInput() {
@@ -24,16 +25,36 @@ int main() {
 	cout << "Number of players: ";
 	int n;
 	cin >> n;
-	Board board(n);
+	Board board;
 
-	for (int i = 0; i < 4; i++) {
-		cout << "Player " << i << ", choose a piece: " << endl;
-		string s;
-		cin >> s;
-		board.addPlayer(s.at(0));
+	map<char, string> pieces;
+	pieces['G'] = "Goose";
+	pieces['B'] = "GRT Bus";
+	pieces['D'] = "Tims Donut";
+	pieces['P'] = "Professor";
+	pieces['S'] = "Student";
+	pieces['$'] = "Money";
+	pieces['L'] = "Laptop";
+	pieces['T'] = "Pink tie";
+
+	typedef map<char, string>::iterator it;
+
+	for (int i = 0; i < n; i++) {
+		cout << "---Available pieces---" << endl;
+		for (it iterator = pieces.begin(); iterator != pieces.end(); iterator++) {
+			cout << "  " << iterator->first << ": " << iterator->second << endl;
+		}
+		cout << "Player " << i + 1 << ", choose a piece: " << endl;
+
+		char piece;
+		if (cin >> piece && pieces.count(piece) > 0) {
+			board.addPlayer(piece);
+			pieces.erase(piece);
+		} else {
+			cout << "Unavailable, choose another piece" << endl;
+			i--;
+		}
 	}
 
-	cout << "DONE FOR NOW" << endl;
-
-
+	
 }

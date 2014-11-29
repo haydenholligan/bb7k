@@ -10,7 +10,10 @@
 #include <sstream>
 #include <string>
 
-Board::Board(int numPlayers) : numPlayers(numPlayers) {
+Board::Board() {
+	numPlayers = 0;
+	iterator = 0;
+
 	srand(time(NULL)); // init random number generator
 
 	// here are the monopoly blocks
@@ -142,7 +145,7 @@ void Board::saveGame(string file) {
 
 Player *Board::nextPlayer() {
 	if (iterator == numPlayers) iterator = 0;
-	return players[iterator];
+	return players[iterator++];
 }
 
 bool Board::giveRollupCup(Player *p) {
@@ -166,16 +169,16 @@ void Board::reDraw() {
     }
     
     string tmpArr[56];
-    tmpArr[0] = "-----------------------------------------------------------------------------------------";
-    tmpArr[1] = "|Goose  |       |NEEDLES|       |       |V1     |       |       |CIF    |       |GO TO  |";
-    tmpArr[2] = "|Nesting|-------|HALL   |-------|-------|       |-------|-------|       |-------|TIMS   |";
-    tmpArr[3] = "|       |EV1    |       |EV2    |EV3    |       |PHYS   |B1     |       |B2     |       |";
-    tmpArr[4] = "|       |       |       |       |       |       |       |       |       |       |       |";
-    tmpArr[5] = "|-------|-----------------------------------------------------------------------|-------|";
-    tmpArr[6] = "|       |                                                                       |       |";
-    tmpArr[7] = "|-------|                                                                       |-------|";
-    tmpArr[8] = "|OPT    |                                                                       |EIT    |";
-    tmpArr[9] = "|       |                                                                       |       |";
+    tmpArr[0]  = "-----------------------------------------------------------------------------------------";
+    tmpArr[1]  = "|Goose  |       |NEEDLES|       |       |V1     |       |       |CIF    |       |GO TO  |";
+    tmpArr[2]  = "|Nesting|-------|HALL   |-------|-------|       |-------|-------|       |-------|TIMS   |";
+    tmpArr[3]  = "|       |EV1    |       |EV2    |EV3    |       |PHYS   |B1     |       |B2     |       |";
+    tmpArr[4]  = "|       |       |       |       |       |       |       |       |       |       |       |";
+    tmpArr[5]  = "|-------|-----------------------------------------------------------------------|-------|";
+    tmpArr[6]  = "|       |                                                                       |       |";
+    tmpArr[7]  = "|-------|                                                                       |-------|";
+    tmpArr[8]  = "|OPT    |                                                                       |EIT    |";
+    tmpArr[9]  = "|       |                                                                       |       |";
     tmpArr[10] = "|-------|                                                                       |-------|";
     tmpArr[11] = "|       |                                                                       |       |";
     tmpArr[12] = "|-------|                                                                       |-------|";
@@ -239,16 +242,6 @@ void Board::reDraw() {
 
 }
 
-
-
-
-
-
-    
-    
-    
-    
-}
 
 void Board::exec(string command) {
     
