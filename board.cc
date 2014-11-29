@@ -26,8 +26,10 @@ void Board::saveGame(string file) {
 Player *Board::nextPlayer();
 
 void Board::giveRollupCup(Player *p) {
-    if (rollUp[0] == NULL) {
-        rollUp[0] = p;
+    for (int i = 0; i < 4; i++) {
+        if (rollUp[i] == NULL) {
+            rollUp[i] = p;
+        }
     }
 }
 
