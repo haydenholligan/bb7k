@@ -11,6 +11,8 @@ class Block {
 public:
     Block(int numBuildings);
     Player *getOwner();
+    Block(int numBuildings, AcademicBuilding *buildings[3]);
+    bool isMonopoly();
     void addBuilding(AcademicBuilding *ab);
     Block();
 };

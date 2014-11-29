@@ -16,7 +16,6 @@ int Gym::getFee() {
         return sum * 10;
     }
     return 0;
-
 }
 
 void Gym::purchase(Player *newOwner) {
