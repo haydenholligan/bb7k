@@ -9,9 +9,12 @@ class Player {
     int pos;
     char piece;
     int money;
+    int netWorth;
     int numResidences;
     int numGyms;
     int turnsInTims;
+    //int numBuildings;
+    //Building *buildings[29];
 public:
     Player(char piece);
     void pay(int amount);
@@ -21,6 +24,7 @@ public:
     void addResidence();
     void addGym();
     void improve(AcademicBuilding *ab);
+    void unimprove(AcademicBuilding *ab);
     int getNumResidences();
     int getNumGyms();
     void mortgage(Building *b);
@@ -31,6 +35,7 @@ public:
     void skip();
     void goToTims();
     void tryToLeaveTims();
+    void payTution();
     void SLC();
     void NeedlesHall();
 };
