@@ -7,9 +7,9 @@ class AcademicBuilding;
 
 class Block {
     int numBuildings;
-    AcademicBuilding *buildings[123];
+    AcademicBuilding *buildings[3];
 public:
-    Block(int numBuildings, AcademicBuilding *buildings[123]);
+    Block(int numBuildings);
     Player *getOwner();
     void addBuilding(AcademicBuilding *ab);
     Block();

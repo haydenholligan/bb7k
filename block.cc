@@ -1,15 +1,16 @@
 #include "block.h"
 
-Block::Block(int numBuildings, AcademicBuilding *buildings[123]) : numBuildings(numBuildings), buildings() {}
+Block::Block(int numBuildings) : numBuildings(numBuildings) {}
 //check buildings() for correctness
 
 //static int numBuildings;
 //AcademicBuilding *buildings[123];
 
-Player *getOwner() {
-    
+Player* Block::getOwner() {
+    // todo
+	return NULL;
 }
 
-void addBuilding(AcademicBuilding *ab) {
-    
+void Block::addBuilding(AcademicBuilding *ab) {
+    buildings[numBuildings++] = ab;
 }
