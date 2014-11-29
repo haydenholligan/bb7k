@@ -1,4 +1,6 @@
 #include <iostream>
+#include <sstream>
+#include <string>
 #include "board.h"
 #include "block.h"
 #include "player.h"
@@ -7,6 +9,12 @@
 #include "acBuilding.h"
 #include "gym.h"
 #include "residence.h"
+
+void takeInput() {
+    
+}
+
+
 
 int main() {
   

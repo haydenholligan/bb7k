@@ -160,3 +160,8 @@ void Board::reDraw() {
 void Board::exec(string command) {
     
 }
+
+
+
+
+
