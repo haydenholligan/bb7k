@@ -6,8 +6,9 @@
 //Player *players[123];
 //Player *rollUp[4];
 
-Board::Board() {
+Board::Board() : rollUp(), players() {
 	srand(time(NULL)); // init random number generator
+    
 }
 
 int Board::roll() {
