@@ -256,6 +256,9 @@ Tile* Board::getTile(string name) {
 	return NULL;
 }
 
+Tile* Board::getTile(int pos) {
+	return board[pos];
+}
 
 
 

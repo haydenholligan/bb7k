@@ -4,8 +4,11 @@
 #include "acBuilding.h"
 #include "board.h"
 
-Player::Player(char piece) : pos(0), piece(piece), money(1500), numResidences(0), numGyms(0), turnsInTims(0), netWorth(1500), hasRollupCup(false) {
-	
+Player::Player(char piece) : pos(0), piece(piece), money(1500), numResidences(0), numGyms(0), turnsInTims(0), netWorth(1500), hasRollupCup(false) {}
+
+
+int Player::getPos() {
+	return pos;
 }
 
 void Player::move(int x) {
@@ -15,11 +18,12 @@ void Player::move(int x) {
       money +=200;
       netWorth +=200;
   }
-    if (newPos < 0) {
-        newPos +=40;
-    }
+  if (newPos < 0) {
+      newPos +=40;
+  }
   pos = newPos;
-  cout << "PLAYER MOVED TO TILE " << pos << endl;
+  cout << "Moved " << x << " spaces" << endl;
+  
 }
 
 void Player::purchase(Building *b) { 

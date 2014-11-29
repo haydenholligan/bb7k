@@ -18,6 +18,7 @@ void takeInput() {
 }
 
 void takeTurn(Board *b, Player *p) {
+	b->reDraw();
 	cout << "-----Player " << p->getPiece() << "'s turn----" << endl;
 	string first;
 	cin >> first;
@@ -25,6 +26,7 @@ void takeTurn(Board *b, Player *p) {
 	// command interpreter
 	if (first == "roll") {
 		p->roll();
+		cout << b->getTile(p->getPos())->getName() << endl;
 		// take action on square they land on
 	}
 	else if (first == "next") {

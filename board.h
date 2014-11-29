@@ -16,6 +16,7 @@ class Board {
 public:
     Board();
 	Tile* getTile(string name);
+	Tile* getTile(int pos);
 	void addPlayer(char piece);
     static int roll();
     void loadGame(string file);

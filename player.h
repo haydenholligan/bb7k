@@ -19,6 +19,7 @@ class Player {
     //Building *buildings[29];
 public:
     Player(char piece);
+	int getPos();
     void move(int x);
     void purchase(Building *b);
     void addResidence();
