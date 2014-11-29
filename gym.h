@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "building.h"
 
-class Gym : Building {
+class Gym : public Building {
 
 public:
     Gym(string name, int purchaseCost);
