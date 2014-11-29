@@ -4,8 +4,7 @@
 #include "prng.h"
 #include "board.h"
 
-Player::Player(char piece) : pos(0), piece(piece), money(1500), numResidences(0), numGyms(0), turnsInTims(0) {}
-
+Player::Player(char piece) : pos(0), piece(piece), money(1500), numResidences(0), numGyms(0), turnsInTims(0), netWorth(1500) {}
 
 void Player::pay(int amount) { 
   money -= amount;
@@ -32,6 +31,8 @@ void Player::purchase(Building *b) {
   if (result >= 0) {
   	money = result;
   	b->purchase(this);
+      //buildings[numBuildings] = b;
+      //numBuildings++;
   } else {
   	// insufficient funds
   }
@@ -45,6 +46,10 @@ void Player::improve(AcademicBuilding *ab) {
 	} else {
 		// insufficient funds
 	}
+}
+
+void Player::unimprove(AcademicBuilding *ab) {
+    
 }
 
 void Player::addResidence() {
@@ -109,6 +114,17 @@ void Player::tryToLeaveTims() {
   // TODO
 }
 
+void Player::payTution() {
+    //wait until command
+    int x;
+    if (x==0) {
+        money -=300;
+    }
+    else if (x==1) {
+        
+    }
+}
+
 void Player::SLC() {
     int timsCheck = rand() % 100 + 1;
     if (timsCheck == 1) {
@@ -143,7 +159,6 @@ void Player::SLC() {
         }
     }
 }
-
 
 void Player::NeedlesHall() {
     int timsCheck = rand() % 100 + 1;
