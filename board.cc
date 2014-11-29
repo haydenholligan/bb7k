@@ -343,11 +343,6 @@ Tile* Board::getTile(int pos) {
 	return board[pos];
 }
 
-void init() {
-
-    
-}
-
 
 
 

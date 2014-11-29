@@ -28,7 +28,6 @@ public:
     bool giveRollupCup(Player *p);
     void reDraw();
     void exec(string command);
-    void init();
 };
 
 #endif 
