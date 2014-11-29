@@ -2,7 +2,7 @@
 #include "building.h"
 #include "player.h"
 
-Block::Block(int numBuildings) : numBuildings(numBuildings) {}
+Block::Block() : numBuildings(0) {}
 //check buildings() for correctness
 
 
