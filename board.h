@@ -9,10 +9,13 @@ using namespace std;
 
 class Board {
     Tile *board[40];
-    Player *players[123];
+	int numPlayers;
+    Player *players[6];
     static Player *rollUp[4];
+	int iterator;
 public:
-    Board();
+    Board(int numPlayers);
+	void addPlayer(char piece);
     static int roll();
     void loadGame(string file);
     void saveGame(string file);

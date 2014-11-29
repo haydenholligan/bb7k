@@ -1,7 +1,7 @@
+#include <cstdlib>
 #include "player.h"
 #include "building.h"
 #include "acBuilding.h"
-#include "prng.h"
 #include "board.h"
 
 Player::Player(char piece) : pos(0), piece(piece), money(1500), numResidences(0), numGyms(0), turnsInTims(0), netWorth(1500) {}

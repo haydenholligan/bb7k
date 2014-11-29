@@ -10,8 +10,11 @@
 
 int main() {
   
-  Board board;
-  
+	cout << "WELCOME TO BB7K!" << endl;
+	cout << "Number of players: ";
+	int n;
+	cin >> n;
+	cout << "THANKS!";
 
 
 

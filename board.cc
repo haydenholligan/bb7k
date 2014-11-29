@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <ctime>
 
-Board::Board() {
+Board::Board(int numPlayers) : numPlayers(numPlayers) {
 	srand(time(NULL)); // init random number generator
 
 	// here are the monopoly blocks
@@ -116,11 +116,11 @@ Board::Board() {
 
 	// fuck yea
 
-
-
 }
 
-
+void Board::addPlayer(char piece) {
+	players[numPlayers++] = new Player(piece);
+}
 
 int Board::roll() {
 	return (rand() % 6 + 1) + (rand() % 6 + 1);
@@ -135,7 +135,8 @@ void Board::saveGame(string file) {
 }
 
 Player *Board::nextPlayer() {
-    return NULL;
+	if (iterator == numPlayers) iterator = 0;
+	return players[iterator];
 }
 
 bool Board::giveRollupCup(Player *p) {
