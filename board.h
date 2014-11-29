@@ -16,6 +16,7 @@ class Board {
 	int iterator;
     Vector propList[40];
     Vector coordList[40];
+    char boardArr[89][56];
 public:
     Board();
 	Tile* getTile(string name);

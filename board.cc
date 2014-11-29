@@ -243,7 +243,7 @@ bool Board::giveRollupCup(Player *p) {
 }
 
 void Board::reDraw() {
-    char boardArr[89][56];
+
     
     for (int i = 0; i < 88; i++) {
         for (int j = 0; j < 55; j++) {
