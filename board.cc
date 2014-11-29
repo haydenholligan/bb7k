@@ -115,6 +115,9 @@ Board::Board(int numPlayers) : numPlayers(numPlayers) {
 	board[39] = DC;
 
 	// fuck yea
+	for (int i = 0; i < 4; i++) {
+		rollUp[i] = NULL;
+	}
 
 }
 
@@ -143,6 +146,7 @@ bool Board::giveRollupCup(Player *p) {
     for (int i = 0; i < 4; i++) {
         if (rollUp[i] == NULL) {
             rollUp[i] = p;
+			p->giveRollupCup();
             return true;
         }
     }

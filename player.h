@@ -4,6 +4,7 @@
 // class forward declarations
 class Building;
 class AcademicBuilding;
+class Board;
 
 class Player {
     int pos;
@@ -13,6 +14,7 @@ class Player {
     int numResidences;
     int numGyms;
     int turnsInTims;
+	bool hasRollupCup;
     //int numBuildings;
     //Building *buildings[29];
 public:
@@ -30,10 +32,11 @@ public:
     char getPiece();
     void roll();
     void skip();
+	void giveRollupCup();
     void goToTims();
     void tryToLeaveTims();
     void payTution();
-    void SLC();
-    void NeedlesHall();
+    void SLC(Board *board);
+    void NeedlesHall(Board *board);
 };
 #endif

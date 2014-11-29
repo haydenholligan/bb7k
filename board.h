@@ -11,7 +11,7 @@ class Board {
     Tile *board[40];
 	int numPlayers;
     Player *players[6];
-    static Player *rollUp[4];
+    Player *rollUp[4];
 	int iterator;
 public:
     Board(int numPlayers);
@@ -20,8 +20,7 @@ public:
     void loadGame(string file);
     void saveGame(string file);
     Player *nextPlayer();
-    static bool giveRollupCup(Player *p);
-    
+    bool giveRollupCup(Player *p);
     void reDraw();
     void exec(string command);
 };

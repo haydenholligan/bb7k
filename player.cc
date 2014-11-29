@@ -4,7 +4,9 @@
 #include "acBuilding.h"
 #include "board.h"
 
-Player::Player(char piece) : pos(0), piece(piece), money(1500), numResidences(0), numGyms(0), turnsInTims(0), netWorth(1500) {}
+Player::Player(char piece) : pos(0), piece(piece), money(1500), numResidences(0), numGyms(0), turnsInTims(0), netWorth(1500), hasRollupCup(false) {
+	
+}
 
 void Player::move(int x) {
   int newPos = pos + x;
@@ -91,6 +93,10 @@ void Player::skip() {
 
 }
 
+void Player::giveRollupCup() {
+	hasRollupCup = true;
+}
+
 void Player::goToTims() { 
   pos = 10; // 10th tile is DC Tims Line
   turnsInTims++;
@@ -121,10 +127,10 @@ void Player::payTution() {
     }
 }
 
-void Player::SLC() {
+void Player::SLC(Board *board) {
     int timsCheck = rand() % 100 + 1;
     if (timsCheck == 1) {
-        Board::giveRollupCup(this);
+        board->giveRollupCup(this);
     }
     else {
         int newPos = rand() % 24 + 1;
@@ -156,10 +162,10 @@ void Player::SLC() {
     }
 }
 
-void Player::NeedlesHall() {
+void Player::NeedlesHall(Board *board) {
     int timsCheck = rand() % 100 + 1;
     if (timsCheck == 1) {
-        Board::giveRollupCup(this);
+        board->giveRollupCup(this);
     }
     else {
         int rand18 = rand() % 18 + 1;
