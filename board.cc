@@ -15,32 +15,34 @@ int Board::roll() {
 	return (rand() % 6 + 1) + (rand() % 6 + 1);
 }
 
-void loadGame(string file) {
+void Board::loadGame(string file) {
     
 }
 
-void saveGame(string file) {
+void Board::saveGame(string file) {
     
 }
 
-Player *nextPlayer();
+Player *Board::nextPlayer();
 
-void giveRollupCup(Player *p) {
+void Board::giveRollupCup(Player *p) {
+    if (rollUp[0] == NULL) {
+        rollUp[0] = p;
+    }
+}
+
+void Board::SLC(Player *p) {
     
 }
 
-void SLC(Player *p) {
+void Board::NeedlesHall(Player *p) {
     
 }
 
-void NeedlesHall(Player *p) {
+void Board::reDraw() {
     
 }
 
-void reDraw() {
-    
-}
-
-void exec(string command) {
+void Board::exec(string command) {
     
 }
