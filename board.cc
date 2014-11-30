@@ -291,10 +291,6 @@ void Board::addPlayer(char piece) {
     //just for moving player on text-board
     boardArr[(coordList[tile].x)+iterator][coordList[tile].y] = players[iterator]->getPiece();
     boardArr[(coordList[oldTile].x)+iterator][coordList[oldTile].y] = ' ';
-     
-    //next player after their commands
-    
-    //nextPlayer();
 }
 
 void Board::incrIterator() {

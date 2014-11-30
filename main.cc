@@ -143,6 +143,7 @@ void takeTurn(Board *b, Player *p) {
 			if (buyorsell == "buy") p->improve(ab);
 			if (buyorsell == "sell") p->unimprove(ab);
 		}
+        //this should be second, not first right?
 		else if (first == "mortgage" || first == "unmortgage") {
 			string propertyName;
 			cin >> propertyName;
@@ -150,6 +151,10 @@ void takeTurn(Board *b, Player *p) {
 			if (first == "mortgage") p->mortgage(building);
 			if (first == "unmortgage")p->unmortgage(building);
 		}
+        
+        else if (second == "bankrupcy") {
+            
+        }
 	}
     
 }
