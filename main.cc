@@ -11,6 +11,8 @@
 #include "gym.h"
 #include "residence.h"
 #include <map>
+#include <cstdlib>
+
 using namespace std;
 
 void takeInput() {
@@ -208,11 +210,19 @@ void takeTurn(Board *b, Player *p) {
 						if (building->getOwner()->getName() != partner) {
 							cout << partner << " does not own " << receive << endl;
 						}
-						//cout << partner << ", do you accept the trade"
-						//	string response;
+						cout << partner << ", do you accept the trade? (y/n) ";
+						string response;
+						cin >> response;
+						if (response.at(0) == 'y') {
+							p->pay(nGive);
+							b->getPlayer(partner)->collect(nGive);
+							building->setOwner(p);
+						}
 
 					}
 				}
+
+
 			}
 		}
 		else if (command == "assets") {
