@@ -177,8 +177,7 @@ void takeTurn(Board *b, Player *p) {
 
 }
 
-int main() {
-
+int main(int argc, char* argv[]) {
 	cout << "Welcome to BB7K!" << endl;
 	cout << "Enter number of players: (2-6) ";
 	int n = 0;
