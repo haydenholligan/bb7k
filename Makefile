@@ -1,8 +1,8 @@
 CXX=g++
 CXXFLAGS=-Wall -MMD
-OBJECTS=main.o lone.o unary.o binary.o
+OBJECTS= main.o board.o block.o tile.o building.o gym.o player.o residence.o acBuilding.o vector.o
 DEPENDS=${OBJECTS:.o=.d}
-EXEC=a4q2
+EXEC=bb7k
 ${EXEC}: ${OBJECTS}
 	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC}
 -include ${DEPENDS}

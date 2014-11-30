@@ -390,6 +390,15 @@ Tile* Board::getTile(int pos) {
 	return board[pos];
 }
 
+Player* Board::getPlayer(string name) {
+	for (int i = 0; i < numPlayers; i++) {
+		if (players[i]->getName() == name) {
+			return players[i];
+		}
+	}
+	return NULL;
+}
+
 bool Board::playerExists(string name) {
 	for (int i = 0; i < numPlayers; i++) {
 		if (players[i]->getName() == name) return true;

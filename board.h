@@ -31,6 +31,7 @@ public:
     void reDraw();
     void exec(string command);
 	bool playerExists(string name);
+	Player* getPlayer(string name);
 };
 
 #endif 
