@@ -178,6 +178,41 @@ void takeTurn(Board *b, Player *p) {
 		}
 		else if (command == "trade") {
 			// trade
+			// trade <name> <give> <receive>
+			string partner, give, receive;
+			cin >> partner;
+			cin >> give;
+			cin >> receive;
+
+			if (!b->playerExists(partner)) {
+				cout << partner << " is not a valid player." << endl;
+			}
+			else {
+				int nGive, nReceive;
+				istringstream ssGive(give);
+				if (ssGive >> nGive) {
+					// receive is a property then
+					Tile *t = b->getTile(receive);
+					int i = 0;
+					if (t) i = t->getIndex();
+					// not proud of this
+					// if tile is not BUILDING
+					if (i == 0 || i == 2 || i == 4 || i == 7 || i == 10 ||
+						i == 17 || i == 20 || i == 22 ||
+						i == 30 || i == 33 || i == 36 || i == 38) {
+						cout << "You cannot trade $" << nGive << " for " << receive << "." << endl;
+					}
+					else {
+						Building *building = (Building *)b->getTile(receive);
+						if (building->getOwner()->getName() != partner) {
+							cout << partner << " does not own " << receive << endl;
+						}
+						//cout << partner << ", do you accept the trade"
+						//	string response;
+
+					}
+				}
+			}
 		}
 		else if (command == "assets") {
 			// assets

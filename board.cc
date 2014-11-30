@@ -282,10 +282,11 @@ Board::Board() {
     
 }
 
-void Board::addPlayer(std::string name, char piece) {
+Player* Board::addPlayer(std::string name, char piece) {
 	players[numPlayers] = new Player(name, piece);
     boardArr[(coordList[0].x)+numPlayers][coordList[0].y] = players[numPlayers]->getPiece();
     numPlayers++;
+	return players[numPlayers - 1];
 }
 
  void Board::movePlayer(int tile, int oldTile) {
@@ -377,7 +378,7 @@ void Board::exec(string command) {
 }
 
 Tile* Board::getTile(string name) {
-	for (int i = 0; i < 39; i++) {
+	for (int i = 0; i < 40; i++) {
 		if (board[i]->getName() == name) {
 			return board[i];
 		}
@@ -389,7 +390,12 @@ Tile* Board::getTile(int pos) {
 	return board[pos];
 }
 
-
+bool Board::playerExists(string name) {
+	for (int i = 0; i < numPlayers; i++) {
+		if (players[i]->getName() == name) return true;
+	}
+	return false;
+}
 
 
 

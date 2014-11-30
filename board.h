@@ -21,7 +21,7 @@ public:
     Board();
 	Tile* getTile(string name);
 	Tile* getTile(int pos);
-	void addPlayer(string name, char piece);
+	Player* addPlayer(string name, char piece);
     void movePlayer(int tile, int oldTile);
     void incrIterator();
     void loadGame(string file);
@@ -30,6 +30,7 @@ public:
     bool giveRollupCup(Player *p);
     void reDraw();
     void exec(string command);
+	bool playerExists(string name);
 };
 
 #endif 

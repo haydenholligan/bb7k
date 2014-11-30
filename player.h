@@ -8,6 +8,7 @@ class AcademicBuilding;
 class Board;
 
 class Player {
+public:
 	std::string name;
 	char piece;
 	int pos;
@@ -17,7 +18,6 @@ class Player {
     int numGyms;
     int turnsInTims;
 	bool hasRollupCup;
-public:
     Player(std::string name, char piece);
 	std::string getName();
 	int getPos();
