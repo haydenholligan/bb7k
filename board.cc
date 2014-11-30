@@ -288,10 +288,7 @@ void Board::addPlayer(char piece) {
 }
 
  void Board::movePlayer(int tile, int oldTile) {
-     
     //just for moving player on text-board
-    //i think this is what iterator is for
-     cout << "Iterator: " << iterator << endl;
     boardArr[(coordList[tile].x)+iterator][coordList[tile].y] = players[iterator]->getPiece();
     boardArr[(coordList[oldTile].x)+iterator][coordList[oldTile].y] = ' ';
      
