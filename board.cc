@@ -281,8 +281,8 @@ Board::Board() {
     
 }
 
-void Board::addPlayer(char piece) {
-	players[numPlayers] = new Player(piece, numPlayers);
+void Board::addPlayer(std::string name, char piece) {
+	players[numPlayers] = new Player(name, piece);
     boardArr[(coordList[0].x)+numPlayers][coordList[0].y] = players[numPlayers]->getPiece();
     numPlayers++;
 }
@@ -331,7 +331,6 @@ void Board::reDraw() {
     }
 
 }
-
 
 void Board::exec(string command) {
     

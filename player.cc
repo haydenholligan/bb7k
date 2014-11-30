@@ -5,15 +5,15 @@
 #include "block.h"
 #include "board.h"
 
-Player::Player(char piece, int playerIndex) : pos(0), piece(piece), playerIndex(playerIndex), money(1500), numResidences(0), numGyms(0), turnsInTims(0), netWorth(1500), hasRollupCup(false) {}
+Player::Player(string name, char piece) : name(name), piece(piece), pos(0), money(1500), numResidences(0), numGyms(0), turnsInTims(0), netWorth(1500), hasRollupCup(false) {}
 
+
+string Player::getName() {
+	return name;
+}
 
 int Player::getPos() {
 	return pos;
-}
-
-int Player::getPlayerIndex() {
-	return playerIndex;
 }
 
 int Player::move(int x) {
@@ -31,13 +31,13 @@ int Player::move(int x) {
 }
 
 void Player::pay(double amount) {
-	cout << "Player " << piece << ": " << money << " - " << amount << " = " << money - amount << endl;
+	cout << name << ": " << money << " - " << amount << " = $" << money - amount << endl;
 	money -= amount;
 	netWorth -= amount;
 }
 
 void Player::collect(double amount) {
-	cout << "Player " << piece << ": " << money << " + " << amount << " = " << money + amount << endl;
+	cout << name << ": " << money << " + " << amount << " = $" << money + amount << endl;
 	money += amount;
 	netWorth += amount;
 }
@@ -48,7 +48,8 @@ void Player::purchase(Building *b) {
 }
 
 void Player::improve(AcademicBuilding *ab, bool buy) {
-	if (ab->getOwner()->getPlayerIndex() == this->playerIndex && ab->getBlock()->isMonopoly()) {
+	Player *owner = ab->getOwner();
+	if (owner && owner->getPiece() == this->piece && ab->getBlock()->isMonopoly()) {
 		if (ab->getNumImproves() <= 4) {
 			pay(ab->getImproveCost());
 			ab->improve();
@@ -88,21 +89,13 @@ int Player::getNumGyms() {
 }
 
 void Player::mortgage(Building *b) {
-	double mortgageVal = b->mortgage();
-	money += mortgageVal;
-	netWorth += mortgageVal;
+	collect(b->mortgage());
 }
 
 void Player::unmortgage(Building *b) {
 	double cost = b->getPurchaseCost();
-
-	double price = (cost / 2) + (0.10 * cost);
-	double result = money - price;
-	if (result >= 0) {
-		money = result;
-		netWorth -= price;
-		b->unmortgage();
-	}
+	pay((cost / 2) + (0.10 * cost));
+	b->unmortgage();
 }
 
 double Player::getBalance() {
@@ -121,10 +114,6 @@ void Player::roll() {
 	move(sum);
 }
 
-void Player::skip() {
-
-}
-
 void Player::giveRollupCup() {
 	hasRollupCup = true;
 }
@@ -134,14 +123,14 @@ void Player::goToTims() {
 	turnsInTims++;
 }
 
-void Player::tryToLeaveTims() {
+bool Player::tryToLeaveTims() {
 	if (turnsInTims >= 4) {
 		turnsInTims = 0;
-		// player takes turn
+		return true;
 	}
 	else {
 		turnsInTims++;
-		// stuck in Tims for this turn
+		return false;
 	}
 	// player can also use rollup cup or pay money to escape Tims
 	//adjust net worth
@@ -153,7 +142,7 @@ void Player::payTution(int option) {
 		pay(300);
 	}
 	else if (option == 2) {
-        pay(netWorth);
+        pay(netWorth * 0.10);
 	}
 }
 

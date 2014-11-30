@@ -12,12 +12,17 @@ void Block::addBuilding(AcademicBuilding *ab) {
 }
 
 bool Block::isMonopoly() {
-    if (buildings[0]->getOwner()->getPiece() == buildings[1]->getOwner()->getPiece()) {
+	Player *owner0 = buildings[0]->getOwner();
+	Player *owner1 = buildings[1]->getOwner();
+	Player *owner2 = NULL;
+	if (numBuildings == 3) owner2 = buildings[2]->getOwner();
+	
+	if (owner0 && owner1 && owner0->getPiece() == owner1->getPiece()) {
         if (numBuildings == 2) {
             return true;
         }
         else if (numBuildings == 3) {
-            if (buildings[1]->getOwner()->getPiece() == buildings[2]->getOwner()->getPiece()) {
+            if (owner2 && owner1->getPiece() == owner2->getPiece()) {
                 return true;
             }
         }
@@ -27,11 +32,10 @@ bool Block::isMonopoly() {
 }
 
 void Block::printBuildingList() {
-	cout << "Building ........... Owner" << endl;
 	for (int i = 0; i < numBuildings; i++) {
 		cout << buildings[i]->getName() << ": ";
 		Player *owner = buildings[i]->getOwner();
-		if (owner) cout << " Player " << owner->getPlayerIndex() << endl;
-		else cout << " Unowned" << endl;
+		if (owner) cout << owner->getName() << endl;
+		else cout << " Bank" << endl;
 	}
 }

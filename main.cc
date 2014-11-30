@@ -24,7 +24,7 @@ void takeTurn(Board *b, Player *p) {
 	// DRAW BOARD
 	b->reDraw();
 
-	cout << "-----Player " << p->getPlayerIndex() + 1 << "'s turn----" << endl;
+	cout << "----- " << p->getName() << " -----" << endl;
 
 	while (true) {
 
@@ -136,9 +136,22 @@ void takeTurn(Board *b, Player *p) {
 			string propertyName, buyorsell;
 			cin >> propertyName;
 			cin >> buyorsell;
-			AcademicBuilding *ab = (AcademicBuilding *)b->getTile(propertyName);
-			if (buyorsell == "buy") p->improve(ab, true);
-			if (buyorsell == "sell") p->improve(ab, false);
+			Tile *t = b->getTile(propertyName);
+			int i = 0;
+			if (t) i = t->getIndex();
+			// not proud of this
+			// if tile is not ACADEMICBUILDING
+			if (i == 0 || i == 2 || i == 4 || i == 5 || i == 7 || i == 10 || i == 12 ||
+				i == 15 || i == 17 || i == 20 || i == 22 || i == 25 || i == 28 ||
+				i == 30 || i == 33 || i == 35 || i == 36 || i == 38) {
+				cout << "You cannot buy/or sell any improvements on " << t->getName() << "." << endl;
+			}
+			// if the tile is an AcademicBuilding
+			else {
+				AcademicBuilding* ab = (AcademicBuilding*)b->getTile(propertyName);
+				if (buyorsell == "buy") p->improve(ab, true);
+				if (buyorsell == "sell") p->improve(ab, false);
+			}
 		}
 		else if (command == "mortgage" || command == "unmortgage") {
 			string propertyName;
@@ -168,9 +181,15 @@ int main() {
 
 	cout << "Welcome to BB7K!" << endl;
 	cout << "Enter number of players: (2-6) ";
-	int n;
-	cin >> n;
-	while (n < 2 || n > 6) cin >> n;
+	int n = 0;
+
+	while (n < 2 || n > 6) {
+		string s;
+		cin >> s;
+		istringstream ss(s);
+		ss >> n;
+	}
+
 	Board board;
 
 	map<char, string> pieces;
@@ -185,23 +204,28 @@ int main() {
 
 	typedef map<char, string>::iterator it;
 
-	// Players choose pieces here
+	// Players are setup here
 	for (int i = 0; i < n; i++) {
+		cout << "Enter player name: " << endl;
+		string name;
+		cin >> name;
+
 		cout << "---Available pieces---" << endl;
 		for (it iterator = pieces.begin(); iterator != pieces.end(); iterator++) {
 			cout << "  " << iterator->first << ": " << iterator->second << endl;
-		}//not sure if i+1 is right
-		cout << "Player " << i + 1 << ", choose a piece: " << endl;
+		}
+	   
+		cout << name << ", choose a piece: " << endl;
 
 		char piece;
         //if piece chosen is valid
 		if (cin >> piece && pieces.count(piece) > 0) {
             //add player's piece to board
-			board.addPlayer(piece);
+			board.addPlayer(name, piece);
             //remove piece from list of pieces
 			pieces.erase(piece);
 		} else {
-			cout <<  "Unavailable, choose another piece" << endl << endl;
+			cout <<  "Unavailable, choose another piece" << endl;
 			i--;
 		}
     }
