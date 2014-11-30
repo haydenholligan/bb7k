@@ -19,6 +19,7 @@ public:
     double getPurchaseCost();
     double mortgage();
     void unmortgage();
+	bool isMortgaged();
     virtual double getFee() = 0;
     virtual void purchase(Player *newOwner);
 };

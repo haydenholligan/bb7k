@@ -23,3 +23,7 @@ void Building::purchase(Player *newOwner) {
 	owner = newOwner;
 }
 
+bool Building::isMortgaged() {
+	return mortgaged;
+}
+

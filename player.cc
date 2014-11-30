@@ -89,13 +89,39 @@ int Player::getNumGyms() {
 }
 
 void Player::mortgage(Building *b) {
-	collect(b->mortgage());
+	Player *owner = b->getOwner();
+	if (owner && owner->getPiece() == piece) {
+		if (b->isMortgaged()) {
+			cout << b->getName() << " is already mortgaged!" << endl;
+			return;
+		}
+		cout << "You have mortgaged " << b->getName() << "." << endl;
+		collect(b->mortgage());
+	}
+	else {
+		cout << "You do not own " << b->getName() << " - you cannot mortgage it." << endl;
+	}
 }
 
 void Player::unmortgage(Building *b) {
-	double cost = b->getPurchaseCost();
-	pay((cost / 2) + (0.10 * cost));
-	b->unmortgage();
+	Player *owner = b->getOwner();
+	if (owner && owner->getPiece() == piece) {
+		if (!b->isMortgaged()) {
+			cout << b->getName() << " is not mortgaged!" << endl;
+			return;
+		}
+		double cost = b->getPurchaseCost();
+		double toPay = (cost / 2) + (0.10 * cost);
+		cout << "You must pay $" << toPay << " to unmortgage this property. Are you sure? (y/n) ";
+		string answer;
+		cin >> answer;
+		if (answer.at(0) != 'y') return;
+		pay(toPay);
+		b->unmortgage();
+	}
+	else {
+		cout << "You do not own " << b->getName() << " - you cannot unmortgage it." << endl;
+	}
 }
 
 double Player::getBalance() {

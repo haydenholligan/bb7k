@@ -144,7 +144,7 @@ void takeTurn(Board *b, Player *p) {
 			if (i == 0 || i == 2 || i == 4 || i == 5 || i == 7 || i == 10 || i == 12 ||
 				i == 15 || i == 17 || i == 20 || i == 22 || i == 25 || i == 28 ||
 				i == 30 || i == 33 || i == 35 || i == 36 || i == 38) {
-				cout << "You cannot buy/or sell any improvements on " << t->getName() << "." << endl;
+				cout << "You cannot buy/sell any improvements on " << propertyName << "." << endl;
 			}
 			// if the tile is an AcademicBuilding
 			else {
@@ -156,9 +156,25 @@ void takeTurn(Board *b, Player *p) {
 		else if (command == "mortgage" || command == "unmortgage") {
 			string propertyName;
 			cin >> propertyName;
-			Building *building = (Building *)b->getTile(propertyName);
-			if (command == "mortgage") p->mortgage(building);
-			if (command == "unmortgage")p->unmortgage(building);
+			Tile *t = b->getTile(propertyName);
+			int i = 0;
+			if (t) i = t->getIndex();
+			// not proud of this
+			// if tile is not BUILDING
+			if (i == 0 || i == 2 || i == 4 || i == 7 || i == 10 ||
+				i == 17 || i == 20 || i == 22 ||
+				i == 30 || i == 33 || i == 36 || i == 38) {
+				cout << "You cannot mortgage " << propertyName << "." << endl;
+			}
+			else {
+				Building *building = (Building *)b->getTile(propertyName);
+				if (command == "mortgage") p->mortgage(building);
+				if (command == "unmortgage")p->unmortgage(building);
+			}
+
+
+
+
 		}
 		else if (command == "trade") {
 			// trade
