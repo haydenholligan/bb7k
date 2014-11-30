@@ -1,10 +1,11 @@
 #include "gym.h"
 #include "player.h"
 #include "board.h"
+#include <cstdlib>
 
 Gym::Gym(int index,string name, int purchaseCost) : Building(index, name, purchaseCost) {}
 
-int Gym::getFee() {
+double Gym::getFee() {
 
     int sum =  (rand() % 6 + 1) + (rand() % 6 + 1);
     int numGyms = Building::getOwner()->getNumGyms();

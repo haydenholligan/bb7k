@@ -9,8 +9,8 @@ class Board;
 class Player {
     int pos;
     char piece;
-    int money;
-    int netWorth;
+    double money;
+    double netWorth;
     int numResidences;
     int numGyms;
     int turnsInTims;
@@ -30,7 +30,7 @@ public:
     int getNumGyms();
     void mortgage(Building *b);
     void unmortgage(Building *b);
-    int getBalance();
+    double getBalance();
     char getPiece();
     void roll();
     void skip();

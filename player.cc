@@ -23,11 +23,11 @@ int Player::move(int x) {
   }
   pos = newPos;
   cout << "Moved " << x << " spaces" << endl;
-    return newPos;
+  return newPos;
 }
 
 void Player::purchase(Building *b) { 
-  int result = money - b->getPurchaseCost();
+  double result = money - b->getPurchaseCost();
   if (result >= 0) {
   	money = result;
   	b->purchase(this);
@@ -39,7 +39,7 @@ void Player::purchase(Building *b) {
 }
 
 void Player::improve(AcademicBuilding *ab) { 
-	int result = money - ab->getImproveCost();
+	double result = money - ab->getImproveCost();
 	if (result >= 0) {
 		money = result;
 		ab->improve();
@@ -69,16 +69,16 @@ int Player::getNumGyms() {
 }
 
 void Player::mortgage(Building *b) {
-    int mortgageVal = b->mortgage();
+    double mortgageVal = b->mortgage();
     money += mortgageVal;
     netWorth += mortgageVal;
 }
 
 void Player::unmortgage(Building *b) { 
-  int cost = b->getPurchaseCost();
+  double cost = b->getPurchaseCost();
 
-  int price = (cost / 2) + (0.10 * cost);
-  int result = money - price;
+  double price = (cost / 2) + (0.10 * cost);
+  double result = money - price;
   if (result >= 0) {
     money = result;
     netWorth -=price;
@@ -86,7 +86,7 @@ void Player::unmortgage(Building *b) {
   }
 }
 
-int Player::getBalance() { 
+double Player::getBalance() { 
   return money;
 }
 
@@ -127,7 +127,7 @@ void Player::tryToLeaveTims() {
 
 void Player::payTution() {
     //wait until command
-    int x;
+    int x = 0;
     if (x==0) {
         money -=300;
         netWorth -=300;

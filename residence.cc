@@ -4,7 +4,7 @@
 
 Residence::Residence(int index, string name, int purchaseCost) : Building(index, name, purchaseCost) {}
 
-int Residence::getFee() {
+double Residence::getFee() {
     int numRes = Building::getOwner()->getNumResidences();
     
    return 25 * pow(2, (numRes-1));

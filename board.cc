@@ -15,7 +15,7 @@ Board::Board() {
 	numPlayers = 0;
 	iterator = 0;
 
-	srand(time(NULL)); // init random number generator
+	srand(time(0)); // init random number generator
 
 	// here are the monopoly blocks
 	Block *Arts1 = new Block;
@@ -274,7 +274,7 @@ Board::Board() {
         }
     }
 
-	// fuck yea
+	//idk if we need this
 	for (int i = 0; i < 4; i++) {
 		rollUp[i] = NULL;
 	}

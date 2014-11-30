@@ -1,7 +1,7 @@
 #include "acBuilding.h"
 #include "block.h"
 
-AcademicBuilding::AcademicBuilding(int index, string name, int purchaseCost, int improveCost, Block *block) : Building(index, name, purchaseCost),  improveCost(improveCost), block(block), numImproves(0) {
+AcademicBuilding::AcademicBuilding(int index, string name, double purchaseCost, double improveCost, Block *block) : Building(index, name, purchaseCost),  improveCost(improveCost), block(block), numImproves(0) {
 	block->addBuilding(this);
 }
 
@@ -14,11 +14,11 @@ void AcademicBuilding::setTuition(int l0, int l1, int l2, int l3, int l4, int l5
 	tuition[5] = l5;
 }
 
-int AcademicBuilding::getFee() {
+double AcademicBuilding::getFee() {
     return tuition[numImproves];
 }
 
-int AcademicBuilding::getImproveCost() {
+double AcademicBuilding::getImproveCost() {
 	return improveCost;
 }
 
@@ -29,8 +29,8 @@ void AcademicBuilding::improve() {
 
 // override Building mortgage method
 // AcademicBuildings need to sell off improvements
-int AcademicBuilding::mortgage() {
-	int cash = Building::mortgage();
+double AcademicBuilding::mortgage() {
+	double cash = Building::mortgage();
 	// sell all improvements at half price
 	while (numImproves > 0) {
 		cash += improveCost / 2;

@@ -7,7 +7,7 @@ class Gym : public Building {
 
 public:
     Gym(int index, string name, int purchaseCost);
-    int getFee();
+    double getFee();
     void purchase(Player *newOwner);
     ~Gym();
 };

@@ -10,16 +10,16 @@ class Player; // forward declaration
 
 class Building : public Tile {
 protected:
-    int purchaseCost;
+    double purchaseCost;
     bool mortgaged;
     Player *owner;
 public:
-	Building(int index, string name, int purchaseCost);
+	Building(int index, string name, double purchaseCost);
     Player *getOwner();
-    int getPurchaseCost();
-    int mortgage();
+    double getPurchaseCost();
+    double mortgage();
     void unmortgage();
-    virtual int getFee() = 0;
+    virtual double getFee() = 0;
     virtual void purchase(Player *newOwner);
 };
 

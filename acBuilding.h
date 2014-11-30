@@ -9,16 +9,16 @@ class Block;
 class AcademicBuilding : public Building {
     
     Block *block;
-    int improveCost;
+    double improveCost;
     int numImproves;
     int tuition[6];
 public:
-    AcademicBuilding(int index, string name, int purchaseCost, int improveCost, Block *block);
+    AcademicBuilding(int index, string name, double purchaseCost, double improveCost, Block *block);
     void setTuition(int l0, int l1, int l2, int l3, int l4, int l5);
-    int getFee();
-    int getImproveCost();
+    double getFee();
+    double getImproveCost();
     void improve();
-    int mortgage();
+    double mortgage();
     ~AcademicBuilding();
 };
 
