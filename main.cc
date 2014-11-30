@@ -271,7 +271,8 @@ int main(int argc, char* argv[]) {
             }
             
             f>>numPlayers;
-            Player *listofPlayers[numPlayers];
+            
+            Player *listofPlayers[6];
             for (int i = 0; i < numPlayers; i++) {
                 int piece =  (rand() % 8);
                 f>>owner;
