@@ -16,6 +16,7 @@ protected:
 public:
 	Building(int index, string name, double purchaseCost);
     Player *getOwner();
+    void setOwner(Player *p);
     double getPurchaseCost();
     double mortgage();
     void unmortgage();

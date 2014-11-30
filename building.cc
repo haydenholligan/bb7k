@@ -15,6 +15,10 @@ double Building::mortgage() {
 	return purchaseCost / 2;
 }
 
+void Building::setOwner(Player *p) {
+    owner = p;
+}
+
 void Building::unmortgage() {
 	mortgaged = false;
 }

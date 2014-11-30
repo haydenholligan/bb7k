@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <fstream>
 #include "board.h"
 #include "block.h"
 #include "player.h"
@@ -224,66 +225,132 @@ void takeTurn(Board *b, Player *p) {
 			cout << "Not a valid command!" << endl;
 		}
 	}
-
-
 }
 
-int main(int argc, char* argv[]) {
-	cout << "Welcome to BB7K!" << endl;
-	cout << "Enter number of players: (2-6) ";
-	int n = 0;
-
-	while (n < 2 || n > 6) {
-		string s;
-		cin >> s;
-		istringstream ss(s);
-		ss >> n;
-	}
-
-	Board board;
-
-	map<char, string> pieces;
-	pieces['G'] = "Goose";
-	pieces['B'] = "GRT Bus";
-	pieces['D'] = "Tims Donut";
-	pieces['P'] = "Professor";
-	pieces['S'] = "Student";
-	pieces['$'] = "Money";
-	pieces['L'] = "Laptop";
-	pieces['T'] = "Pink tie";
-
-	typedef map<char, string>::iterator it;
-
-	// Players are setup here
-	for (int i = 0; i < n; i++) {
-		cout << "Enter player name: " << endl;
-		string name;
-		cin >> name;
-
-		cout << "---Available pieces---" << endl;
-		for (it iterator = pieces.begin(); iterator != pieces.end(); iterator++) {
-			cout << "  " << iterator->first << ": " << iterator->second << endl;
-		}
-	   
-		cout << name << ", choose a piece: " << endl;
-
-		char piece;
-        //if piece chosen is valid
-		if (cin >> piece && pieces.count(piece) > 0) {
-            //add player's piece to board
-			board.addPlayer(name, piece);
-            //remove piece from list of pieces
-			pieces.erase(piece);
-		} else {
-			cout <<  "Unavailable, choose another piece" << endl;
-			i--;
-		}
+void loadGame(string file) {
     }
 
-	while (true) { // stop loop, TODO
-		// Players turn
-		Player *player = board.nextPlayer();
-		takeTurn(&board, player);
-	}
-	
+int main(int argc, char* argv[]) {
+    if (argc > 1) {
+        string str(argv[1]);
+        //argv[0] is the program
+        //argv[1] is -load or -testing
+        //if argv[1] is -load, argv[2] is a filename
+        if (str == "-load") {
+            string file(argv[2]);
+            ifstream  f;
+            string name, owner;
+            int numPlayers, money, position, dc, dcnum, improvements;
+            Board board;
+            
+            char pieces[8];
+            pieces[0] = 'G';
+            pieces[1] = 'B';
+            pieces[2] = 'D';
+            pieces[3] = 'P';
+            pieces[4] = 'S';
+            pieces[5] = '$';
+            pieces[6] = 'L';
+            pieces[7] = 'T';
+            
+
+            f.open(file);
+            
+            if (!f.is_open()) {
+                exit(EXIT_FAILURE);
+            }
+            
+            f>>numPlayers;
+            for (int i = 0; i < numPlayers; i++) {
+                int piece =  (rand() % 8);
+                f>>owner;
+                 Player *p = board.addPlayer(owner, pieces[piece]);
+                f>>money;
+                p->money = money;
+                f>>position;
+                p->pos = position;
+                if (position == 10) {
+                    f>>dc;
+                    if (dc == 1) {
+                        f>>dcnum;
+                        p->turnsInTims = dcnum;
+                    }
+                    else dcnum = 0;
+                }
+            } //end for
+            
+            for (int i = 0; i < 29; i++) {
+                f>>name;
+                f>>owner;
+                //give buildName to owner
+                //if owner = bank, set to null
+                f>>improvements;
+                //set improvements for each building
+            }
+
+        }
+        else if (str == "-testing") {
+            //enable testing
+        }
+    }
+    
+    else {
+        cout << "Welcome to BB7K!" << endl;
+        cout << "Enter number of players: (2-6) ";
+        int n = 0;
+
+        while (n < 2 || n > 6) {
+            string s;
+            cin >> s;
+            istringstream ss(s);
+            ss >> n;
+        }
+
+        Board board;
+
+        map<char, string> pieces;
+        pieces['G'] = "Goose";
+        pieces['B'] = "GRT Bus";
+        pieces['D'] = "Tims Donut";
+        pieces['P'] = "Professor";
+        pieces['S'] = "Student";
+        pieces['$'] = "Money";
+        pieces['L'] = "Laptop";
+        pieces['T'] = "Pink tie";
+
+        typedef map<char, string>::iterator it;
+
+        // Players are setup here
+        for (int i = 0; i < n; i++) {
+            cout << "Enter player name: " << endl;
+            string name;
+            cin >> name;
+
+            cout << "---Available pieces---" << endl;
+            for (it iterator = pieces.begin(); iterator != pieces.end(); iterator++) {
+                cout << "  " << iterator->first << ": " << iterator->second << endl;
+            }
+           
+            cout << name << ", choose a piece: " << endl;
+
+            char piece;
+            //if piece chosen is valid
+            if (cin >> piece && pieces.count(piece) > 0) {
+                //add player's piece to board
+                board.addPlayer(name, piece);
+                //remove piece from list of pieces
+                pieces.erase(piece);
+            } else {
+                cout <<  "Unavailable, choose another piece" << endl;
+                i--;
+            }
+        }
+
+        while (true) { // stop loop, TODO
+            // Players turn
+            Player *player = board.nextPlayer();
+            takeTurn(&board, player);
+        }
+        
+    }
 }
