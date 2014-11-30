@@ -140,7 +140,7 @@ void Player::payTution(int option) {
 		pay(300);
 	}
 	else if (option == 2) {
-		//adjust money and networth
+        pay(netWorth);
 	}
 }
 

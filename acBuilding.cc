@@ -27,8 +27,13 @@ int AcademicBuilding::getNumImproves() {
 }
 
 void AcademicBuilding::improve() {
+    if (numImproves == 5) {
+        cerr << "Error: Reached maximum number of improvements" << endl;
+        
+    }
+    else if (numImproves <5) {
 	numImproves++;
-	// should have a check to make sure we dont go over 5 improvements
+    }
 }
 
 void AcademicBuilding::unimprove() {
