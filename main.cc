@@ -247,7 +247,7 @@ int main(int argc, char* argv[]) {
         //argv[1] is -load or -testing
         //if argv[1] is -load, argv[2] is a filename
         if (str == "-load") {
-            string file(argv[2]);
+            char* file = argv[2];
             ifstream  f;
             string name, owner;
             int numPlayers, money, position, dc, dcnum, improvements;
