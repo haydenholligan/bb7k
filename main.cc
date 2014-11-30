@@ -261,6 +261,7 @@ int main(int argc, char* argv[]) {
             }
             
             f>>numPlayers;
+            Player *listofPlayers[numPlayers];
             for (int i = 0; i < numPlayers; i++) {
                 int piece =  (rand() % 8);
                 f>>owner;
@@ -277,15 +278,28 @@ int main(int argc, char* argv[]) {
                     }
                     else dcnum = 0;
                 }
+                listofPlayers[i] = p;
             } //end for
             
-            for (int i = 0; i < 29; i++) {
+            for (int i = 0; i < 40; i++) {
+                if (i==0 || i==2 || i==4 || i==7 || i==10 || i==17 || i==20 || i==22 || i==30 || i==33 || i==36 || i==38) {
+                    break;
+                }
+                
+                else {
                 f>>name;
                 f>>owner;
-                //give buildName to owner
-                //if owner = bank, set to null
+                    Player *p1 = board.getPlayer(name);
+                    Building *b = (Building *)board.getTile(i);
+                    b->setOwner(p1);
+                
                 f>>improvements;
-                //set improvements for each building
+                    while (improvements > 0) {
+                        AcademicBuilding *ab = (AcademicBuilding *)b;
+                        ab->improve();
+                        improvements--;
+                    }
+                }
             }
 
         }

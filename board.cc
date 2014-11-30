@@ -299,49 +299,6 @@ void Board::incrIterator() {
     iterator++;
 }
 
-void Board::loadGame(string file) {
-    
-    ifstream  f;
-    string name, owner;
-    int numPlayers, money, position, dc, dcnum, improvements;
-    string filename = "monopoly-load.txt";
-    f.open(filename);
-    
-    if (!f.is_open()) {
-        exit(EXIT_FAILURE);
-    }
-    
-    f>>numPlayers;
-    for (int i = 0; i < numPlayers; i++) {
-        f>>owner;
-        //create player1 name
-        f>>money;
-        //give player 1 money
-        f>>position;
-        //give player1 position
-        if (position == 10) {
-            f>>dc;
-            if (dc == 1) {
-                f>>dcnum;
-                //give player DCNUM turns in dc lineup
-            }
-            
-            else dcnum = 0;
-            
-        }
-    } //end for
-    
-    for (int i = 0; i < 29; i++) {
-        f>>name;
-        f>>owner;
-        //give buildName to owner
-        //if owner = bank, set to null
-        f>>improvements;
-        //set improvements for each building
-    }
-}
-
-
 void Board::saveGame(string file) {
     
 }
