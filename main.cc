@@ -19,7 +19,10 @@ void takeInput() {
 
 void takeTurn(Board *b, Player *p) {
 
+	b->reDraw();
+
 	cout << "-----Player " << p->getPiece() << "'s turn----" << endl;
+	cout << "Options: roll, skip" << endl;
 	string first;
 	cin >> first;
 
@@ -53,84 +56,99 @@ void takeTurn(Board *b, Player *p) {
 			p->payTution(n);
 		}
 
-		else if (newPos == 5 || newPos == 15 || newPos == 25 || newPos == 35) {
-			// Land on residence
-			Residence *res = (Residence *) b->getTile(newPos);
-			if (res->getOwner() == NULL) {
+		else if (newPos == 10) {
+			// DC Tims line
+			cout << "You landed on the DC Tims Line! Nothing happens!" << endl;
+		}
+
+		else if (newPos == 20) {
+			// Goose Nesting
+			cout << "GEESE ATTACK YOU!! LOL" << endl;
+		}
+		else if (newPos == 7 || newPos == 22 || newPos == 36) {
+			// Needles hall
+			cout << "You landed on Needles Hall!" << endl;
+			p->NeedlesHall(b);
+		}
+		else if (newPos == 30) {
+			// GO TO TIMS
+			cout << "You must go to the DC Tims Line. Wait 3 turns to get out." << endl;
+			p->goToTims();
+		}
+		else if (newPos == 38) {
+			// COOP FEE
+			cout << "You must pay $150" << endl;
+			p->pay(150);
+		}
+		else {
+			// otherwise, player has landed on property (academic building, residence, or gym)
+			// if no one owns this property
+			//   player can buy, or do nothing
+			// if someone owns this property already
+			//   player must pay rent
+
+			Building *building = (Building *) b->getTile(newPos);
+			if (building->getOwner() == NULL) {
 				// no owner
-				cout << "Would you like to purchase " << res->getName() << " for $" << res->getPurchaseCost() << "? (y/n) ";
+				cout << "Would you like to purchase " << building->getName() << " for $" << building->getPurchaseCost() << "? (y/n) ";
 				string answer;
 				cin >> answer;
 				if (answer.at(0) == 'y') {
-					p->purchase(res);
+					p->purchase(building);
 				}
 			}
-			else if (res->getOwner()->getPiece() == p->getPiece()) {
-				// current player owns this res already
-				cout << "You own " << res->getName() << " already!" << endl;
+			else if (building->getOwner()->getPiece() == p->getPiece()) {
+				// current player owns this building already
+				cout << "You own " << building->getName() << " already!" << endl;
 			}
 			else {
 				// someone else owns it, player must pay fee
-				Player *owner = res->getOwner();
-				double fee = res->getFee();
+				Player *owner = building->getOwner();
+				double fee = building->getFee();
 				cout << "You must pay " << fee << " to Player " << owner->getPiece() << endl;
 				p->pay(fee);
 				owner->collect(fee);
 			}
 		}
-
-		else if (newPos == 10) {
-			// DC Tims line
-			
-		}
-		else if (newPos == 12 || newPos == 28) {
-			// GYMS
-		}
-
-		else if (newPos == 20) {
-			// Goose Nesting
-		}
-		else if (newPos == 7 || newPos == 22 || newPos == 36) {
-			// Needles hall
-		}
-		else if (newPos == 30) {
-			// GO TO TIMS
-		}
-		else if (newPos == 38) {
-			// COOP FEE
-		}
-		else {
-			// otherwise, player has landed on property
-			// if no one owns this property
-			//   player can buy, or do nothing
-			// if someone owns this property already
-			//   player must pay rent
-		}
 		
 	}
-	else if (first == "next") {
+	else if (first == "skip") {
+		b->incrIterator();
 		return;
 	}
-	else if (first == "trade") {
-		// TODO
+	else {
+		cout << "Not a valid command." << endl;
+		cout << "Valid options: roll, skip" << endl;
 	}
-	else if (first == "improve") {
-		string propertyName, buyorsell;
-		cin >> propertyName;
-		cin >> buyorsell;
-		AcademicBuilding *ab = (AcademicBuilding *) b->getTile(propertyName);
-		if (buyorsell == "buy") p->improve(ab);
-		if (buyorsell == "sell") p->unimprove(ab);
+
+	// AFTER ROLL TURN OPTIONS: trade, improve, mortgage, unmortgage, bankrupt, assets, save
+
+	cout << "Would you like to do anything else in this turn?" << endl
+		<< "Valid commands: trade, improve, mortgage, unmortgage, bankrupt, assets, save" << endl
+		<< "done - finish turn" << endl;
+	string second;
+	while (cin >> second) {
+		if (second == "done") {
+			b->incrIterator();
+			return;
+		}
+        else if (second == "improve") {
+			string propertyName, buyorsell;
+			cin >> propertyName;
+			cin >> buyorsell;
+			AcademicBuilding *ab = (AcademicBuilding *)b->getTile(propertyName);
+			if (buyorsell == "buy") p->improve(ab);
+			if (buyorsell == "sell") p->unimprove(ab);
+		}
+		else if (first == "mortgage" || first == "unmortgage") {
+			string propertyName;
+			cin >> propertyName;
+			Building *building = (Building *)b->getTile(propertyName);
+			if (first == "mortgage") p->mortgage(building);
+			if (first == "unmortgage")p->unmortgage(building);
+		}
 	}
-	else if (first == "mortgage" || first == "unmortgage") {
-		string propertyName;
-		cin >> propertyName;
-		Building *building = (Building *)b->getTile(propertyName);
-		if (first == "mortgage") p->mortgage(building);
-		if (first == "unmortgage")p->unmortgage(building);
-	}
-    b->incrIterator();
-	b->reDraw();
+    
 }
 
 int main() {
