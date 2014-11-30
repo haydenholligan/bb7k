@@ -22,9 +22,9 @@ void takeTurn(Board *b, Player *p) {
 	cout << "-----Player " << p->getPiece() << "'s turn----" << endl;
 	string first;
 	cin >> first;
-    int x = p->getPos();
 	// command interpreter
 	if (first == "roll") {
+        int x = p->getPos();
 		p->roll();
         b->movePlayer(p->getPos(), x);
 		cout << b->getTile(p->getPos())->getName() << endl;
