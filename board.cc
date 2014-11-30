@@ -203,48 +203,6 @@ Board::Board() {
     coordList[38] =  {81, 49};
     coordList[39] =  {81, 54};
 
-	// fuck yea
-	for (int i = 0; i < 4; i++) {
-		rollUp[i] = NULL;
-	}
-    
-}
-
-void Board::addPlayer(char piece) {
-	players[numPlayers++] = new Player(piece);
-}
-
-int Board::roll() {
-	return (rand() % 6 + 1) + (rand() % 6 + 1);
-}
-
-void Board::loadGame(string file) {
-    
-}
-
-void Board::saveGame(string file) {
-    
-}
-
-Player *Board::nextPlayer() {
-	if (iterator == numPlayers) iterator = 0;
-	return players[iterator++];
-}
-
-bool Board::giveRollupCup(Player *p) {
-    for (int i = 0; i < 4; i++) {
-        if (rollUp[i] == NULL) {
-            rollUp[i] = p;
-			p->giveRollupCup();
-            return true;
-        }
-    }
-    return false;
-}
-
-void Board::reDraw() {
-
-    
     for (int i = 0; i < 88; i++) {
         for (int j = 0; j < 55; j++) {
             boardArr[i][j] = ' ';
@@ -315,7 +273,63 @@ void Board::reDraw() {
             boardArr[i][a] = s[i];
         }
     }
+
+	// fuck yea
+	for (int i = 0; i < 4; i++) {
+		rollUp[i] = NULL;
+	}
     
+}
+
+void Board::addPlayer(char piece) {
+	players[numPlayers] = new Player(piece);
+    boardArr[(coordList[0].x)+numPlayers][coordList[0].y] = players[numPlayers]->getPiece();
+    numPlayers++;
+}
+
+ void Board::movePlayer(int tile, int oldTile) {
+     
+    //just for moving player on text-board
+    //i think this is what iterator is for
+     cout << "Iterator: " << iterator << endl;
+    boardArr[(coordList[tile].x)+iterator][coordList[tile].y] = players[iterator]->getPiece();
+    boardArr[(coordList[oldTile].x)+iterator][coordList[oldTile].y] = ' ';
+     
+    //next player after their commands
+    
+    //nextPlayer();
+}
+
+void Board::incrIterator() {
+    iterator++;
+}
+
+void Board::loadGame(string file) {
+    
+}
+
+void Board::saveGame(string file) {
+    
+}
+
+Player *Board::nextPlayer() {
+	if (iterator == numPlayers) iterator = 0;
+	return players[iterator];
+}
+
+bool Board::giveRollupCup(Player *p) {
+    for (int i = 0; i < 4; i++) {
+        if (rollUp[i] == NULL) {
+            rollUp[i] = p;
+			p->giveRollupCup();
+            return true;
+        }
+    }
+    return false;
+}
+
+void Board::reDraw() {
+
     for (int i = 0; i < 56; i++) {
         for (int j = 0; j < 89; j++) {
             cout << boardArr[j][i];

@@ -20,7 +20,7 @@ class Player {
 public:
     Player(char piece);
 	int getPos();
-    void move(int x);
+    int move(int x);
     void purchase(Building *b);
     void addResidence();
     void addGym();

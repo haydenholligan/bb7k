@@ -22,7 +22,8 @@ public:
 	Tile* getTile(string name);
 	Tile* getTile(int pos);
 	void addPlayer(char piece);
-    static int roll();
+    void movePlayer(int tile, int oldTile);
+    void incrIterator();
     void loadGame(string file);
     void saveGame(string file);
     Player *nextPlayer();

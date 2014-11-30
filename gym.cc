@@ -6,7 +6,7 @@ Gym::Gym(int index,string name, int purchaseCost) : Building(index, name, purcha
 
 int Gym::getFee() {
 
-    int sum = Board::roll();
+    int sum =  (rand() % 6 + 1) + (rand() % 6 + 1);
     int numGyms = Building::getOwner()->getNumGyms();
     
     if (numGyms == 1) {

@@ -11,7 +11,7 @@ int Player::getPos() {
 	return pos;
 }
 
-void Player::move(int x) {
+int Player::move(int x) {
   int newPos = pos + x;
   if (newPos >= 40) {
     newPos -= 40;
@@ -23,7 +23,7 @@ void Player::move(int x) {
   }
   pos = newPos;
   cout << "Moved " << x << " spaces" << endl;
-  
+    return newPos;
 }
 
 void Player::purchase(Building *b) { 
@@ -94,11 +94,12 @@ char Player::getPiece() {
   return piece;
 }
 
-void Player::roll() { 
-  move(Board::roll());
+void Player::roll() {
+    int x =  (rand() % 6 + 1) + (rand() % 6 + 1);
+    move(x);
 }
 
-void Player::skip() { 
+void Player::skip() {
 
 }
 

@@ -22,10 +22,11 @@ void takeTurn(Board *b, Player *p) {
 	cout << "-----Player " << p->getPiece() << "'s turn----" << endl;
 	string first;
 	cin >> first;
-
+    int x = p->getPos();
 	// command interpreter
 	if (first == "roll") {
 		p->roll();
+        b->movePlayer(p->getPos(), x);
 		cout << b->getTile(p->getPos())->getName() << endl;
 		// take action on square they land on
 	}
@@ -55,6 +56,7 @@ void takeTurn(Board *b, Player *p) {
 		Building *building = (Building *) b->getTile(propertyName);
 		p->unmortgage(building);
 	}
+    b->incrIterator();
 }
 
 int main() {
@@ -82,18 +84,23 @@ int main() {
 		cout << "---Available pieces---" << endl;
 		for (it iterator = pieces.begin(); iterator != pieces.end(); iterator++) {
 			cout << "  " << iterator->first << ": " << iterator->second << endl;
-		}
+		}//not sure if i+1 is right
 		cout << "Player " << i + 1 << ", choose a piece: " << endl;
 
 		char piece;
+        //if piece chosen is valid
 		if (cin >> piece && pieces.count(piece) > 0) {
+            //add player's piece to board
 			board.addPlayer(piece);
+            //remove piece from list of pieces
 			pieces.erase(piece);
 		} else {
 			cout << "Unavailable, choose another piece" << endl;
 			i--;
 		}
-	}
+    }
+    
+    
 
 	while (true) { // stop loop, TODO
 		// Players turn
