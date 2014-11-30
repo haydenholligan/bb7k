@@ -19,6 +19,7 @@ void takeInput() {
 
 void takeTurn(Board *b, Player *p) {
 
+	// DRAW BOARD
 	b->reDraw();
 
 	cout << "-----Player " << p->getPiece() << "'s turn----" << endl;
@@ -33,6 +34,8 @@ void takeTurn(Board *b, Player *p) {
 		int newPos = p->getPos();
 		b->movePlayer(newPos, oldPos);
 
+		cout << "You landed on " << b->getTile(newPos)->getName() << "." << endl;
+
 		if (newPos == 0) {
 			// COllECT OSAP
 			cout << "Congratulations! Collect $200!" << endl;
@@ -46,8 +49,9 @@ void takeTurn(Board *b, Player *p) {
 
 		else if (newPos == 4) {
 			// TUITON
-			cout << "Pay 1) $300 or"
-		         << "    2) 10% of your total worth?" << endl;
+			cout << "You have to pay tuition! Options: " << endl
+				<< "    1) $300 or" << endl
+		        << "    2) 10% of your total worth?" << endl;
 			string option;
 			cin >> option;
 			istringstream ss(option);
@@ -58,7 +62,7 @@ void takeTurn(Board *b, Player *p) {
 
 		else if (newPos == 10) {
 			// DC Tims line
-			cout << "You landed on the DC Tims Line! Nothing happens!" << endl;
+			cout << "Nothing happens!" << endl;
 		}
 
 		else if (newPos == 20) {
@@ -67,7 +71,6 @@ void takeTurn(Board *b, Player *p) {
 		}
 		else if (newPos == 7 || newPos == 22 || newPos == 36) {
 			// Needles hall
-			cout << "You landed on Needles Hall!" << endl;
 			p->NeedlesHall(b);
 		}
 		else if (newPos == 30) {
@@ -124,8 +127,8 @@ void takeTurn(Board *b, Player *p) {
 	// AFTER ROLL TURN OPTIONS: trade, improve, mortgage, unmortgage, bankrupt, assets, save
 
 	cout << "Would you like to do anything else in this turn?" << endl
-		<< "Valid commands: trade, improve, mortgage, unmortgage, bankrupt, assets, save" << endl
-		<< "done - finish turn" << endl;
+		<< "    Valid commands: trade, improve, mortgage, unmortgage, bankrupt, assets, save" << endl
+		<< "    done - finish turn" << endl;
 	string second;
 	while (cin >> second) {
 		if (second == "done") {
@@ -153,10 +156,11 @@ void takeTurn(Board *b, Player *p) {
 
 int main() {
 
-	cout << "WELCOME TO BB7K!" << endl;
-	cout << "Number of players: ";
+	cout << "Welcome to BB7K!" << endl;
+	cout << "Enter number of players: (2-6) ";
 	int n;
 	cin >> n;
+	while (n < 2 || n > 6) cin >> n;
 	Board board;
 
 	map<char, string> pieces;
@@ -187,12 +191,12 @@ int main() {
             //remove piece from list of pieces
 			pieces.erase(piece);
 		} else {
-			cout << "Unavailable, choose another piece" << endl;
+			cout << endl <<  "Unavailable, choose another piece" << endl;
 			i--;
 		}
     }
     
-    
+	board.reDraw();
 
 	while (true) { // stop loop, TODO
 		// Players turn

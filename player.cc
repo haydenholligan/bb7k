@@ -12,52 +12,50 @@ int Player::getPos() {
 }
 
 int Player::move(int x) {
-  int newPos = pos + x;
-  if (newPos >= 40) {
-    newPos -= 40;
-      money +=200;
-      netWorth +=200;
-  }
-  if (newPos < 0) {
-      newPos +=40;
-  }
-  pos = newPos;
-  cout << "Moved " << x << " spaces" << endl;
-  return newPos;
+	int newPos = pos + x;
+	if (newPos >= 40) {
+		newPos -= 40;
+		money += 200;
+		netWorth += 200;
+	}
+	if (newPos < 0) {
+		newPos += 40;
+	}
+	pos = newPos;
+	return newPos;
 }
 
 void Player::pay(double amount) {
+	cout << "Player " << piece << ": " << money << " - " << amount << " = " << money - amount << endl;
 	money -= amount;
+	netWorth -= amount;
 }
 
 void Player::collect(double amount) {
+	cout << "Player " << piece << ": " << money << " + " << amount << " = " << money + amount << endl;
 	money += amount;
+	netWorth += amount;
 }
 
-void Player::purchase(Building *b) { 
-  double result = money - b->getPurchaseCost();
-  if (result >= 0) {
-  	money = result;
-  	b->purchase(this);
-      //buildings[numBuildings] = b;
-      //numBuildings++;
-  } else {
-  	// insufficient funds
-  }
+void Player::purchase(Building *b) {
+	pay(b->getPurchaseCost());
+	b->purchase(this);
 }
 
-void Player::improve(AcademicBuilding *ab) { 
-	double result = money - ab->getImproveCost();
-	if (result >= 0) {
-		money = result;
+void Player::improve(AcademicBuilding *ab) {
+	int numImproves = ab->getNumImproves();
+	if (numImproves <= 4) {
+		pay(ab->getImproveCost());
 		ab->improve();
-	} else {
-		// insufficient funds
 	}
 }
 
 void Player::unimprove(AcademicBuilding *ab) {
-
+	int numImproves = ab->getNumImproves();
+	if (numImproves > 0) {
+		collect(ab->getImproveCost() / 2);
+		ab->unimprove();
+	}
 }
 
 void Player::addResidence() {
@@ -68,43 +66,46 @@ void Player::addGym() {
 	numGyms++;
 }
 
-int Player::getNumResidences() { 
+int Player::getNumResidences() {
 	return numResidences;
 }
 
-int Player::getNumGyms() { 
+int Player::getNumGyms() {
 	return numGyms;
 }
 
 void Player::mortgage(Building *b) {
-    double mortgageVal = b->mortgage();
-    money += mortgageVal;
-    netWorth += mortgageVal;
+	double mortgageVal = b->mortgage();
+	money += mortgageVal;
+	netWorth += mortgageVal;
 }
 
-void Player::unmortgage(Building *b) { 
-  double cost = b->getPurchaseCost();
+void Player::unmortgage(Building *b) {
+	double cost = b->getPurchaseCost();
 
-  double price = (cost / 2) + (0.10 * cost);
-  double result = money - price;
-  if (result >= 0) {
-    money = result;
-    netWorth -=price;
-    b->unmortgage();
-  }
+	double price = (cost / 2) + (0.10 * cost);
+	double result = money - price;
+	if (result >= 0) {
+		money = result;
+		netWorth -= price;
+		b->unmortgage();
+	}
 }
 
-double Player::getBalance() { 
-  return money;
+double Player::getBalance() {
+	return money;
 }
 
-char Player::getPiece() { 
-  return piece;
+char Player::getPiece() {
+	return piece;
 }
 
 void Player::roll() {
-    int x =  (rand() % 6 + 1) + (rand() % 6 + 1);
-    move(x);
+	int die1 = rand() % 6 + 1;
+	int die2 = rand() % 6 + 1;
+	int sum = die1 + die2;
+	cout << "You rolled: " << die1 << " + " << die2 << " = " << sum << endl;
+	move(sum);
 }
 
 void Player::skip() {
@@ -115,106 +116,99 @@ void Player::giveRollupCup() {
 	hasRollupCup = true;
 }
 
-void Player::goToTims() { 
-  pos = 10; // 10th tile is DC Tims Line
-  turnsInTims++;
+void Player::goToTims() {
+	pos = 10; // 10th tile is DC Tims Line
+	turnsInTims++;
 }
 
-void Player::tryToLeaveTims() { 
-  if (turnsInTims >= 4) {
-    turnsInTims = 0;
-    roll();
-  } else {
-    turnsInTims++;
-    // stuck in Tims for this turn
-  }
-  // player can also use rollup cup or pay money to escape Tims
-  //adjust net worth
-  // TODO
+void Player::tryToLeaveTims() {
+	if (turnsInTims >= 4) {
+		turnsInTims = 0;
+		// player takes turn
+	}
+	else {
+		turnsInTims++;
+		// stuck in Tims for this turn
+	}
+	// player can also use rollup cup or pay money to escape Tims
+	//adjust net worth
+	// TODO
 }
 
 void Player::payTution(int option) {
-    if (option == 0) {
-        money -=300;
-        netWorth -=300;
-    }
-    else if (option == 1) {
-        //adjust money and networth
-    }
+	if (option == 1) {
+		pay(300);
+	}
+	else if (option == 2) {
+		//adjust money and networth
+	}
 }
 
 void Player::SLC(Board *board) {
-    int timsCheck = rand() % 100 + 1;
-    if (timsCheck == 1) {
-        board->giveRollupCup(this);
-    }
-    else {
-        int newPos = rand() % 24 + 1;
+	int timsCheck = rand() % 100 + 1;
+	if (timsCheck == 1) {
+		board->giveRollupCup(this);
+	}
+	else {
+		int newPos = rand() % 24 + 1;
 
-        if (newPos >= 1 && newPos <= 3) {
-            move(-3);
-        }
-        else if (newPos >= 4 && newPos <= 7) {
-            move(-2);
-        }
-        else if (newPos >= 8 && newPos <= 11) {
-            move(-1);
-        }
-        else if (newPos >= 12 && newPos <= 14) {
-            move(1);
-        }
-        else if (newPos >= 15 && newPos <= 18) {
-            move(2);
-        }
-        else if (newPos >= 19 && newPos <= 22) {
-            move(3);
-        }
-        else if (newPos == 23) {
-            goToTims();
-        }
-        else if (newPos == 24) {
-            move(-pos);
-        }
-    }
+		if (newPos >= 1 && newPos <= 3) {
+			move(-3);
+		}
+		else if (newPos >= 4 && newPos <= 7) {
+			move(-2);
+		}
+		else if (newPos >= 8 && newPos <= 11) {
+			move(-1);
+		}
+		else if (newPos >= 12 && newPos <= 14) {
+			move(1);
+		}
+		else if (newPos >= 15 && newPos <= 18) {
+			move(2);
+		}
+		else if (newPos >= 19 && newPos <= 22) {
+			move(3);
+		}
+		else if (newPos == 23) {
+			goToTims();
+		}
+		else if (newPos == 24) {
+			move(-pos);
+		}
+	}
 }
 
 void Player::NeedlesHall(Board *board) {
-    int timsCheck = rand() % 100 + 1;
-    if (timsCheck == 1) {
-        board->giveRollupCup(this);
-    }
-    else {
-        int rand18 = rand() % 18 + 1;
-        
-        if (rand18 == 1) {
-            money -=200;
-            netWorth -=200;
-        }
-        else if (rand18 >= 2 && rand18 <= 3) {
-            money -=100;
-            netWorth -=100;
-        }
-        else if (rand18 >= 4 && rand18 <= 6) {
-            money -=50;
-            netWorth -=50;
-        }
-        else if (rand18 >= 7 && rand18 <= 12) {
-            money +=25;
-            netWorth +=25;
-        }
-        else if (rand18 >= 13 && rand18 <= 15) {
-            money +=50;
-            netWorth +=50;
-        }
-        else if (rand18 >= 16 && rand18 <= 17) {
-            money +=100;
-            netWorth +=100;
-        }
-        else if (rand18 == 18) {
-            money +=200;
-            netWorth +=200;
-        }
-    }
+	int timsCheck = rand() % 100 + 1;
+	if (timsCheck == 1) {
+		board->giveRollupCup(this);
+	}
+	else {
+		int rand18 = rand() % 18 + 1;
+
+		if (rand18 == 1) {
+			pay(200);
+		}
+		else if (rand18 >= 2 && rand18 <= 3) {
+			pay(100);
+		}
+		else if (rand18 >= 4 && rand18 <= 6) {
+			pay(50);
+		}
+		else if (rand18 >= 7 && rand18 <= 12) {
+			collect(25);
+		}
+		else if (rand18 >= 13 && rand18 <= 15) {
+			collect(50);
+		}
+		else if (rand18 >= 16 && rand18 <= 17) {
+			collect(100);
+		}
+		else if (rand18 == 18) {
+			collect(200);
+		}
+	}
 }
 
 

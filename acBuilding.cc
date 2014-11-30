@@ -22,9 +22,17 @@ double AcademicBuilding::getImproveCost() {
 	return improveCost;
 }
 
+int AcademicBuilding::getNumImproves() {
+	return numImproves;
+}
+
 void AcademicBuilding::improve() {
 	numImproves++;
 	// should have a check to make sure we dont go over 5 improvements
+}
+
+void AcademicBuilding::unimprove() {
+	numImproves--;
 }
 
 // override Building mortgage method

@@ -17,7 +17,9 @@ public:
     void setTuition(int l0, int l1, int l2, int l3, int l4, int l5);
     double getFee();
     double getImproveCost();
+	int getNumImproves();
     void improve();
+	void unimprove();
     double mortgage();
     ~AcademicBuilding();
 };
