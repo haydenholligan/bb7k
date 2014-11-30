@@ -18,6 +18,7 @@ public:
     double getFee();
     double getImproveCost();
 	int getNumImproves();
+	Block* getBlock();
     void improve();
 	void unimprove();
     double mortgage();

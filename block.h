@@ -9,12 +9,10 @@ class Block {
     int numBuildings;
     AcademicBuilding *buildings[3];
 public:
-    Block(int numBuildings);
-    Player *getOwner();
-    Block(int numBuildings, AcademicBuilding *buildings[3]);
+	Block();
     bool isMonopoly();
     void addBuilding(AcademicBuilding *ab);
-    Block();
+	void printBuildingList();
 };
 
 #endif

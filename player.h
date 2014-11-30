@@ -8,6 +8,7 @@ class Board;
 
 class Player {
     int pos;
+	int playerIndex;
     char piece;
     double money;
     double netWorth;
@@ -18,16 +19,16 @@ class Player {
     //int numBuildings;
     //Building *buildings[29];
 public:
-    Player(char piece);
+    Player(char piece, int playerIndex);
 	int getPos();
+	int getPlayerIndex();
     int move(int x);
 	void pay(double amount);
 	void collect(double amount);
     void purchase(Building *b);
     void addResidence();
     void addGym();
-    void improve(AcademicBuilding *ab);
-	void unimprove(AcademicBuilding *ab);
+    void improve(AcademicBuilding *ab, bool buy);
     int getNumResidences();
     int getNumGyms();
     void mortgage(Building *b);

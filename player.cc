@@ -2,13 +2,18 @@
 #include "player.h"
 #include "building.h"
 #include "acBuilding.h"
+#include "block.h"
 #include "board.h"
 
-Player::Player(char piece) : pos(0), piece(piece), money(1500), numResidences(0), numGyms(0), turnsInTims(0), netWorth(1500), hasRollupCup(false) {}
+Player::Player(char piece, int playerIndex) : pos(0), piece(piece), playerIndex(playerIndex), money(1500), numResidences(0), numGyms(0), turnsInTims(0), netWorth(1500), hasRollupCup(false) {}
 
 
 int Player::getPos() {
 	return pos;
+}
+
+int Player::getPlayerIndex() {
+	return playerIndex;
 }
 
 int Player::move(int x) {
@@ -42,21 +47,29 @@ void Player::purchase(Building *b) {
 	b->purchase(this);
 }
 
-void Player::improve(AcademicBuilding *ab) {
-	int numImproves = ab->getNumImproves();
-	if (numImproves <= 4) {
-		pay(ab->getImproveCost());
-		ab->improve();
+void Player::improve(AcademicBuilding *ab, bool buy) {
+	if (ab->getOwner()->getPlayerIndex() == this->playerIndex && ab->getBlock()->isMonopoly()) {
+		if (ab->getNumImproves() <= 4) {
+			pay(ab->getImproveCost());
+			ab->improve();
+		}
+		else {
+			cout << "Cannot improve " << ab->getName() << " any more (max 5 improvements)." << endl;
+		}
+	}
+	else {
+		cout << "You cannot buy/sell improvements for " << ab->getName() << " since you do not own all the buildings in its Monopoly Block." << endl;
+		ab->getBlock()->printBuildingList();
 	}
 }
 
-void Player::unimprove(AcademicBuilding *ab) {
-	int numImproves = ab->getNumImproves();
-	if (numImproves > 0) {
-		collect(ab->getImproveCost() / 2);
-		ab->unimprove();
-	}
-}
+//void Player::unimprove(AcademicBuilding *ab) {
+//	int numImproves = ab->getNumImproves();
+//	if (numImproves > 0) {
+//		collect(ab->getImproveCost() / 2);
+//		ab->unimprove();
+//	}
+//}
 
 void Player::addResidence() {
 	numResidences++;

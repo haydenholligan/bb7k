@@ -26,6 +26,10 @@ int AcademicBuilding::getNumImproves() {
 	return numImproves;
 }
 
+Block* AcademicBuilding::getBlock() {
+	return block;
+}
+
 void AcademicBuilding::improve() {
     if (numImproves == 5) {
         cerr << "Error: Reached maximum number of improvements" << endl;

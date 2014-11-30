@@ -282,7 +282,7 @@ Board::Board() {
 }
 
 void Board::addPlayer(char piece) {
-	players[numPlayers] = new Player(piece);
+	players[numPlayers] = new Player(piece, numPlayers);
     boardArr[(coordList[0].x)+numPlayers][coordList[0].y] = players[numPlayers]->getPiece();
     numPlayers++;
 }

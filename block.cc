@@ -25,3 +25,13 @@ bool Block::isMonopoly() {
     }
         return false;
 }
+
+void Block::printBuildingList() {
+	cout << "Building ........... Owner" << endl;
+	for (int i = 0; i < numBuildings; i++) {
+		cout << buildings[i]->getName() << ": ";
+		Player *owner = buildings[i]->getOwner();
+		if (owner) cout << " Player " << owner->getPlayerIndex() << endl;
+		else cout << " Unowned" << endl;
+	}
+}
