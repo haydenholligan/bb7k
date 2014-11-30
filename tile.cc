@@ -7,3 +7,6 @@ string Tile::getName() {
 	return name;
 }
 
+int Tile::getIndex() {
+	return index;
+}
