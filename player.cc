@@ -26,6 +26,14 @@ int Player::move(int x) {
   return newPos;
 }
 
+void Player::pay(double amount) {
+	money -= amount;
+}
+
+void Player::collect(double amount) {
+	money += amount;
+}
+
 void Player::purchase(Building *b) { 
   double result = money - b->getPurchaseCost();
   if (result >= 0) {
@@ -125,14 +133,12 @@ void Player::tryToLeaveTims() {
   // TODO
 }
 
-void Player::payTution() {
-    //wait until command
-    int x = 0;
-    if (x==0) {
+void Player::payTution(int option) {
+    if (option == 0) {
         money -=300;
         netWorth -=300;
     }
-    else if (x==1) {
+    else if (option == 1) {
         //adjust money and networth
     }
 }

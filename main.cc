@@ -18,17 +18,95 @@ void takeInput() {
 }
 
 void takeTurn(Board *b, Player *p) {
-	b->reDraw();
+
 	cout << "-----Player " << p->getPiece() << "'s turn----" << endl;
 	string first;
 	cin >> first;
+
 	// command interpreter
 	if (first == "roll") {
-        int x = p->getPos();
+		int oldPos = p->getPos();
 		p->roll();
-        b->movePlayer(p->getPos(), x);
-		cout << b->getTile(p->getPos())->getName() << endl;
-		// take action on square they land on
+		int newPos = p->getPos();
+		b->movePlayer(newPos, oldPos);
+
+		if (newPos == 0) {
+			// COllECT OSAP
+			cout << "Congratulations! Collect $200!" << endl;
+			// player already gets 200 from roll function
+		}
+
+		else if (newPos == 2 || newPos == 33) {
+			// SLC
+			p->SLC(b);
+		}
+
+		else if (newPos == 4) {
+			// TUITON
+			cout << "Pay 1) $300 or"
+		         << "    2) 10% of your total worth?" << endl;
+			string option;
+			cin >> option;
+			istringstream ss(option);
+			int n;
+			ss >> n;
+			p->payTution(n);
+		}
+
+		else if (newPos == 5 || newPos == 15 || newPos == 25 || newPos == 35) {
+			// Land on residence
+			Residence *res = (Residence *) b->getTile(newPos);
+			if (res->getOwner() == NULL) {
+				// no owner
+				cout << "Would you like to purchase " << res->getName() << " for $" << res->getPurchaseCost() << "? (y/n) ";
+				string answer;
+				cin >> answer;
+				if (answer.at(0) == 'y') {
+					p->purchase(res);
+				}
+			}
+			else if (res->getOwner()->getPiece() == p->getPiece()) {
+				// current player owns this res already
+				cout << "You own " << res->getName() << " already!" << endl;
+			}
+			else {
+				// someone else owns it, player must pay fee
+				Player *owner = res->getOwner();
+				double fee = res->getFee();
+				cout << "You must pay " << fee << " to Player " << owner->getPiece() << endl;
+				p->pay(fee);
+				owner->collect(fee);
+			}
+		}
+
+		else if (newPos == 10) {
+			// DC Tims line
+			
+		}
+		else if (newPos == 12 || newPos == 28) {
+			// GYMS
+		}
+
+		else if (newPos == 20) {
+			// Goose Nesting
+		}
+		else if (newPos == 7 || newPos == 22 || newPos == 36) {
+			// Needles hall
+		}
+		else if (newPos == 30) {
+			// GO TO TIMS
+		}
+		else if (newPos == 38) {
+			// COOP FEE
+		}
+		else {
+			// otherwise, player has landed on property
+			// if no one owns this property
+			//   player can buy, or do nothing
+			// if someone owns this property already
+			//   player must pay rent
+		}
+		
 	}
 	else if (first == "next") {
 		return;
@@ -44,19 +122,15 @@ void takeTurn(Board *b, Player *p) {
 		if (buyorsell == "buy") p->improve(ab);
 		if (buyorsell == "sell") p->unimprove(ab);
 	}
-	else if (first == "mortgage") {
+	else if (first == "mortgage" || first == "unmortgage") {
 		string propertyName;
 		cin >> propertyName;
-		Building *building = (Building *) b->getTile(propertyName);
-		p->mortgage(building);
-	}
-	else if (first == "unmortgage") {
-		string propertyName;
-		cin >> propertyName;
-		Building *building = (Building *) b->getTile(propertyName);
-		p->unmortgage(building);
+		Building *building = (Building *)b->getTile(propertyName);
+		if (first == "mortgage") p->mortgage(building);
+		if (first == "unmortgage")p->unmortgage(building);
 	}
     b->incrIterator();
+	b->reDraw();
 }
 
 int main() {

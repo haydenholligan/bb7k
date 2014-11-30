@@ -21,6 +21,8 @@ public:
     Player(char piece);
 	int getPos();
     int move(int x);
+	void pay(double amount);
+	void collect(double amount);
     void purchase(Building *b);
     void addResidence();
     void addGym();
@@ -37,7 +39,7 @@ public:
 	void giveRollupCup();
     void goToTims();
     void tryToLeaveTims();
-    void payTution();
+    void payTution(int option);
     void SLC(Board *board);
     void NeedlesHall(Board *board);
 };
