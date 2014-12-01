@@ -7,4 +7,4 @@ ${EXEC}: ${OBJECTS}
 	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC}
 -include ${DEPENDS}
 clean:
-	rm ${OBJECTS} {$DEPENDS} {EXEC}
+	rm ${OBJECTS} ${DEPENDS} ${EXEC}

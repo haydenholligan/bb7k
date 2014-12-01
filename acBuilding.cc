@@ -31,13 +31,7 @@ Block* AcademicBuilding::getBlock() {
 }
 
 void AcademicBuilding::improve() {
-    if (numImproves == 5) {
-        cerr << "Error: Reached maximum number of improvements" << endl;
-        
-    }
-    else if (numImproves <5) {
 	numImproves++;
-    }
 }
 
 void AcademicBuilding::unimprove() {

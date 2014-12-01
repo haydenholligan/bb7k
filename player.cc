@@ -20,8 +20,8 @@ int Player::move(int x) {
 	int newPos = pos + x;
 	if (newPos >= 40) {
 		newPos -= 40;
-		money += 200;
-		netWorth += 200;
+		cout << "Pass COLLECT OSAP: Collect $200" << endl;
+		collect(200);
 	}
 	if (newPos < 0) {
 		newPos += 40;
@@ -30,10 +30,17 @@ int Player::move(int x) {
 	return newPos;
 }
 
-void Player::pay(double amount) {
-	cout << name << ": " << money << " - " << amount << " = $" << money - amount << endl;
+bool Player::pay(double amount) {
+
+	
+	cout << name << ": " << money << " - " << amount << " = " << money - amount << endl;
+	if (money - amount < 0) {
+		cout << "Insufficient funds!" << endl;
+		return false;
+	}
 	money -= amount;
 	netWorth -= amount;
+	return true;
 }
 
 void Player::collect(double amount) {
@@ -50,12 +57,23 @@ void Player::purchase(Building *b) {
 void Player::improve(AcademicBuilding *ab, bool buy) {
 	Player *owner = ab->getOwner();
 	if (owner && owner->getPiece() == this->piece && ab->getBlock()->isMonopoly()) {
-		if (ab->getNumImproves() <= 4) {
-			pay(ab->getImproveCost());
-			ab->improve();
+		if (buy) {
+			if (ab->getNumImproves() <= 4) {
+				pay(ab->getImproveCost());
+				ab->improve();
+			}
+			else {
+				cout << "Cannot improve " << ab->getName() << " any more (max 5 improvements)." << endl;
+			}
 		}
 		else {
-			cout << "Cannot improve " << ab->getName() << " any more (max 5 improvements)." << endl;
+			if (ab->getNumImproves() > 0) {
+				ab->unimprove();
+				collect(ab->getImproveCost() / 2);
+			}
+			else {
+				cout << ab->getName() << " does not have any improvements." << endl;
+			}
 		}
 	}
 	else {
@@ -63,14 +81,6 @@ void Player::improve(AcademicBuilding *ab, bool buy) {
 		ab->getBlock()->printBuildingList();
 	}
 }
-
-//void Player::unimprove(AcademicBuilding *ab) {
-//	int numImproves = ab->getNumImproves();
-//	if (numImproves > 0) {
-//		collect(ab->getImproveCost() / 2);
-//		ab->unimprove();
-//	}
-//}
 
 void Player::addResidence() {
 	numResidences++;

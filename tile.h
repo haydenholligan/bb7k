@@ -4,6 +4,7 @@
 using namespace std;
 
 class Tile {
+protected:
 	int index;
 	string name;
 public:

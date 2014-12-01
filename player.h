@@ -22,7 +22,7 @@ public:
 	std::string getName();
 	int getPos();
     int move(int x);
-	void pay(double amount);
+	bool pay(double amount);
 	void collect(double amount);
     void purchase(Building *b);
     void addResidence();
