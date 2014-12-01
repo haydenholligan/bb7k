@@ -204,12 +204,12 @@ Board::Board() {
 	coordList[38] = { 81, 49 };
 	coordList[39] = { 81, 54 };
 
-    for (int i = 0; i < 88; i++) {
+   for (int i = 0; i < 88; i++) {
         for (int j = 0; j < 55; j++) {
             boardArr[i][j] = ' ';
         }
     }
-    
+
     string tmpArr[56];
     tmpArr[0]  = "-----------------------------------------------------------------------------------------";
     tmpArr[1]  = "|Goose  |       |NEEDLES|       |       |V1     |       |       |CIF    |       |GO TO  |";
@@ -293,6 +293,18 @@ Player* Board::addPlayer(std::string name, char piece) {
     //just for moving player on text-board
     boardArr[(coordList[tile].x)+iterator][coordList[tile].y] = players[iterator]->getPiece();
     boardArr[(coordList[oldTile].x)+iterator][coordList[oldTile].y] = ' ';
+}
+
+void Board::addImprove(int tile) {
+    AcademicBuilding *ab = (AcademicBuilding *)board[tile];
+    int yyy = ab->getNumImproves();
+    boardArr[(propList[tile].x)+yyy][propList[tile].y] = '*';
+}
+
+void Board::removeImprove(int tile) {
+    AcademicBuilding *ab = (AcademicBuilding *)board[tile];
+    int yyy = ab->getNumImproves();
+    boardArr[(propList[tile].x)+yyy][propList[tile].y] = ' ';
 }
 
 void Board::incrIterator() {

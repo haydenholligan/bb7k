@@ -24,6 +24,8 @@ public:
 	Player* addPlayer(string name, char piece);
     void movePlayer(int tile, int oldTile);
     void incrIterator();
+    void addImprove(int tile);
+    void removeImprove(int tile);
     void loadGame(string file);
     void saveGame(string file);
     Player *nextPlayer();
