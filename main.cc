@@ -276,9 +276,6 @@ void takeTurn(Board *b, Player *p) {
 	}
 }
 
-void loadGame(string file) {
-    }
-
 int main(int argc, char* argv[]) {
     if (argc > 1) {
         string str(argv[1]);
