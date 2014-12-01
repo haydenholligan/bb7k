@@ -200,9 +200,9 @@ Board::Board() {
 	coordList[34] = { 81, 24 };
 	coordList[35] = { 81, 29 };
 	coordList[36] = { 81, 34 };
-	coordList[37] = { 81, 44 };
-	coordList[38] = { 81, 49 };
-	coordList[39] = { 81, 54 };
+	coordList[37] = { 81, 39 };
+	coordList[38] = { 81, 44 };
+	coordList[39] = { 81, 49 };
 
    for (int i = 0; i < 88; i++) {
         for (int j = 0; j < 55; j++) {
@@ -282,9 +282,9 @@ Board::Board() {
     
 }
 
-Player* Board::addPlayer(std::string name, char piece) {
+Player* Board::addPlayer(std::string name, char piece, int pos) {
 	players[numPlayers] = new Player(name, piece);
-    boardArr[(coordList[0].x)+numPlayers][coordList[0].y] = players[numPlayers]->getPiece();
+    boardArr[(coordList[pos].x)+numPlayers][coordList[pos].y] = players[numPlayers]->getPiece();
     numPlayers++;
 	return players[numPlayers - 1];
 }

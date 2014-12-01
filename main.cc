@@ -18,6 +18,15 @@ using namespace std;
 bool runMain = true;
 bool isTesting = false;
 
+void bankruptOption(Board *b, Player *p) {
+	cout << "Options: bankrupt, mortgage, trade" << endl;
+	string answer;
+	cin >> answer;
+	if (answer == "bankrupt") {
+
+	}
+}
+
 void roll(Board *b, Player *p) {
 	int newPos, oldPos;
 	if (isTesting == true) {
@@ -83,7 +92,7 @@ void roll(Board *b, Player *p) {
 	else if (newPos == 38) {
 		// COOP FEE
 		cout << "You must pay $150" << endl;
-		if (!p->pay(150)) bankrupt(b, p);
+		if (!p->pay(150)) bankruptOption(b, p);
 	}
 	else {
 		// otherwise, player has landed on property (academic building, residence, or gym)
@@ -243,11 +252,6 @@ void save(Board *b) {
 
 }
 
-void bankruptOption(Board *b, Player *p) {
-	cout << "Options: bankrupt, mortgage, trade" << endl;
-
-}
-
 void takeTurn(Board *b, Player *p) {
 
 	bool rolled = false;
@@ -305,151 +309,153 @@ void newGame(Board *board) {
 }
 
 int main(int argc, char* argv[]) {
-	if (argc > 1) {
-		string str(argv[1]);
-		//argv[0] is the program
-		//argv[1] is -load or -testing
-		//if argv[1] is -load, argv[2] is a filename
-		if (str == "-load") {
-			runMain = false;
-			ifstream  f;
-			char *file = argv[2];
-			string name, owner;
-			int numPlayers, money, position, dc, dcnum, improvements;
-			Board board;
+    if (argc > 1) {
+        string str(argv[1]);
+        //argv[0] is the program
+        //argv[1] is -load or -testing
+        //if argv[1] is -load, argv[2] is a filename
+        if (str == "-load") {
+            runMain = false;
+            char* file = argv[2];
+            ifstream  f;
+            string name, owner;
+            int numPlayers, money, position, dc, dcnum, improvements;
+            Board board;
+            
+            char pieces[8];
+            pieces[0] = 'G';
+            pieces[1] = 'B';
+            pieces[2] = 'D';
+            pieces[3] = 'P';
+            pieces[4] = 'S';
+            pieces[5] = '$';
+            pieces[6] = 'L';
+            pieces[7] = 'T';
+            
 
-			char pieces[8];
-			pieces[0] = 'G';
-			pieces[1] = 'B';
-			pieces[2] = 'D';
-			pieces[3] = 'P';
-			pieces[4] = 'S';
-			pieces[5] = '$';
-			pieces[6] = 'L';
-			pieces[7] = 'T';
+            f.open(file);
+            
+            if (!f.is_open()) {
+                exit(EXIT_FAILURE);
+            }
+            
+            f>>numPlayers;
+            
+            Player *listofPlayers[6];
+            for (int i = 0; i < numPlayers; i++) {
+                //int piece =  (rand() % 8);
+                f>>owner;
+                f>>money;
+                f>>position;
+                 Player *p = board.addPlayer(owner, pieces[i], position);
+                p->money = money;
+                p->pos = position;
+                
+                if (position == 10) {
+                    f>>dc;
+                    if (dc == 1) {
+                        f>>dcnum;
+                        p->turnsInTims = dcnum;
+                    }
+                    else dcnum = 0;
+                }
+                listofPlayers[i] = p;
+            } //end for
+            
+            for (int i = 0; i < 40; i++) {
+                if (i==0 || i==2 || i==4 || i==7 || i==10 || i==17 || i==20 || i==22 || i==30 || i==33 || i==36 || i==38) {
+                    cout << "Unbuyable building: " << i << endl;
+                    continue;
+                }
+            
+                f>>name;
+                f>>owner;
+                cout << "Name, owner: " << name << " " << owner << endl;
+                    Player *p1 = board.getPlayer(owner);
+                    Building *bb = (Building *)board.getTile(i);
+                    bb->setOwner(p1);
+                
+                f>>improvements;
+                    while (improvements > 0) {
+                        AcademicBuilding *ab = (AcademicBuilding *)bb;
+                        ab->improve();
+                        board.addImprove(i);
+                        improvements--;
+                    }
+                
+            }
+            
+            while (true) { // stop loop, TODO
+                // Players turn
+                Player *player = board.nextPlayer();
+                takeTurn(&board, player);
+            }
+        }
+        else if (str == "-testing") {
+            isTesting = true;
+            runMain = true;
+        }
+        
+    }
+    
+    if (runMain == true) {
+        cout << "Welcome to BB7K!" << endl;
+        if (isTesting == true) {
+            cout << "Testing mode enabled" << endl;
+        }
+        cout << "Enter number of players: (2-6) ";
+        int n = 0;
 
+        while (n < 2 || n > 6) {
+            string s;
+            cin >> s;
+            istringstream ss(s);
+            ss >> n;
+        }
 
-			f.open(file);
+        Board board;
 
-			if (!f.is_open()) {
-				exit(EXIT_FAILURE);
-			}
+        map<char, string> pieces;
+        pieces['G'] = "Goose";
+        pieces['B'] = "GRT Bus";
+        pieces['D'] = "Tims Donut";
+        pieces['P'] = "Professor";
+        pieces['S'] = "Student";
+        pieces['$'] = "Money";
+        pieces['L'] = "Laptop";
+        pieces['T'] = "Pink tie";
 
-			f >> numPlayers;
+        typedef map<char, string>::iterator it;
 
-			Player *listofPlayers[6];
-			for (int i = 0; i < numPlayers; i++) {
-				int piece = (rand() % 8);
-				f >> owner;
-				Player *p = board.addPlayer(owner, pieces[piece]);
-				f >> money;
-				p->money = money;
-				f >> position;
-				p->pos = position;
-				if (position == 10) {
-					f >> dc;
-					if (dc == 1) {
-						f >> dcnum;
-						p->turnsInTims = dcnum;
-					}
-					else dcnum = 0;
-				}
-				listofPlayers[i] = p;
-			} //end for
+        // Players are setup here
+        for (int i = 0; i < n; i++) {
+            cout << "Enter player name: " << endl;
+            string name;
+            cin >> name;
 
-			for (int i = 0; i < 40; i++) {
-				if (i == 0 || i == 2 || i == 4 || i == 7 || i == 10 || i == 17 || i == 20 || i == 22 || i == 30 || i == 33 || i == 36 || i == 38) {
-					break;
-				}
+            cout << "---Available pieces---" << endl;
+            for (it iterator = pieces.begin(); iterator != pieces.end(); iterator++) {
+                cout << "  " << iterator->first << ": " << iterator->second << endl;
+            }
+           
+            cout << name << ", choose a piece: " << endl;
 
-				else {
-					f >> name;
-					f >> owner;
-					Player *p1 = board.getPlayer(name);
-					Building *b = (Building *)board.getTile(i);
-					b->setOwner(p1);
-
-					f >> improvements;
-					while (improvements > 0) {
-						AcademicBuilding *ab = (AcademicBuilding *)b;
-						ab->improve();
-						improvements--;
-					}
-				}
-			}
-			while (true) { // stop loop, TODO
-				// Players turn
-				Player *player = board.nextPlayer();
-				takeTurn(&board, player);
-			}
-		}
-		else if (str == "-testing") {
-			isTesting = true;
-			runMain = true;
-		}
-
-	}
-
-	if (runMain == true) {
-		cout << "Welcome to BB7K!" << endl;
-		if (isTesting == true) {
-			cout << "Testing mode enabled" << endl;
-		}
-		cout << "Enter number of players: (2-6) ";
-		int n = 0;
-
-		while (n < 2 || n > 6) {
-			string s;
-			cin >> s;
-			istringstream ss(s);
-			ss >> n;
-		}
-
-		Board board;
-
-		map<char, string> pieces;
-		pieces['G'] = "Goose";
-		pieces['B'] = "GRT Bus";
-		pieces['D'] = "Tims Donut";
-		pieces['P'] = "Professor";
-		pieces['S'] = "Student";
-		pieces['$'] = "Money";
-		pieces['L'] = "Laptop";
-		pieces['T'] = "Pink tie";
-
-		typedef map<char, string>::iterator it;
-
-		// Players are setup here
-		for (int i = 0; i < n; i++) {
-			cout << "Enter player name: " << endl;
-			string name;
-			cin >> name;
-
-			cout << "---Available pieces---" << endl;
-			for (it iterator = pieces.begin(); iterator != pieces.end(); iterator++) {
-				cout << "  " << iterator->first << ": " << iterator->second << endl;
-			}
-
-			cout << name << ", choose a piece: " << endl;
-
-			char piece;
-			//if piece chosen is valid
-			if (cin >> piece && pieces.count(piece) > 0) {
-				//add player's piece to board
-				board.addPlayer(name, piece);
-				//remove piece from list of pieces
-				pieces.erase(piece);
-			}
-			else {
-				cout << "Unavailable, choose another piece" << endl;
-				i--;
-			}
-		}
-		while (true) { // stop loop, TODO
-			// Players turn
-			Player *player = board.nextPlayer();
-			takeTurn(&board, player);
-		}
-	}
-
+            char piece;
+            //if piece chosen is valid
+            if (cin >> piece && pieces.count(piece) > 0) {
+                //add player's piece to board
+                board.addPlayer(name, piece, 0);
+                //remove piece from list of pieces
+                pieces.erase(piece);
+            } else {
+                cout <<  "Unavailable, choose another piece" << endl;
+                i--;
+            }
+        }
+        while (true) { // stop loop, TODO
+            // Players turn
+            Player *player = board.nextPlayer();
+            takeTurn(&board, player);
+        }
+    }
 }

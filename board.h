@@ -21,7 +21,7 @@ public:
     Board();
 	Tile* getTile(string name);
 	Tile* getTile(int pos);
-	Player* addPlayer(string name, char piece);
+	Player* addPlayer(string name, char piece, int pos);
     void movePlayer(int tile, int oldTile);
     void incrIterator();
     void addImprove(int tile);
