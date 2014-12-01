@@ -311,13 +311,14 @@ int main(int argc, char* argv[]) {
             
             Player *listofPlayers[6];
             for (int i = 0; i < numPlayers; i++) {
-                int piece =  (rand() % 8);
+                //int piece =  (rand() % 8);
                 f>>owner;
-                 Player *p = board.addPlayer(owner, pieces[piece]);
                 f>>money;
-                p->money = money;
                 f>>position;
+                 Player *p = board.addPlayer(owner, pieces[i], position);
+                p->money = money;
                 p->pos = position;
+                
                 if (position == 10) {
                     f>>dc;
                     if (dc == 1) {
@@ -331,13 +332,14 @@ int main(int argc, char* argv[]) {
             
             for (int i = 0; i < 40; i++) {
                 if (i==0 || i==2 || i==4 || i==7 || i==10 || i==17 || i==20 || i==22 || i==30 || i==33 || i==36 || i==38) {
-                    break;
+                    cout << "Unbuyable building: " << i << endl;
+                    continue;
                 }
-                
-                else {
+            
                 f>>name;
                 f>>owner;
-                    Player *p1 = board.getPlayer(name);
+                cout << "Name, owner: " << name << " " << owner << endl;
+                    Player *p1 = board.getPlayer(owner);
                     Building *b = (Building *)board.getTile(i);
                     b->setOwner(p1);
                 
@@ -347,8 +349,9 @@ int main(int argc, char* argv[]) {
                         ab->improve();
                         improvements--;
                     }
-                }
+                
             }
+            
             while (true) { // stop loop, TODO
                 // Players turn
                 Player *player = board.nextPlayer();
@@ -408,7 +411,7 @@ int main(int argc, char* argv[]) {
             //if piece chosen is valid
             if (cin >> piece && pieces.count(piece) > 0) {
                 //add player's piece to board
-                board.addPlayer(name, piece);
+                board.addPlayer(name, piece, 0);
                 //remove piece from list of pieces
                 pieces.erase(piece);
             } else {
