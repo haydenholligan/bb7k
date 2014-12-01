@@ -340,13 +340,14 @@ int main(int argc, char* argv[]) {
                 f>>owner;
                 cout << "Name, owner: " << name << " " << owner << endl;
                     Player *p1 = board.getPlayer(owner);
-                    Building *b = (Building *)board.getTile(i);
-                    b->setOwner(p1);
+                    Building *bb = (Building *)board.getTile(i);
+                    bb->setOwner(p1);
                 
                 f>>improvements;
                     while (improvements > 0) {
-                        AcademicBuilding *ab = (AcademicBuilding *)b;
+                        AcademicBuilding *ab = (AcademicBuilding *)bb;
                         ab->improve();
+                        board.addImprove(i);
                         improvements--;
                     }
                 
