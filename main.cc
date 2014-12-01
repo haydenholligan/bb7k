@@ -252,7 +252,7 @@ void help() {
 }
 
 void assets(Board *b, Player *p) {
-
+    cout << "Assets: " << p->netWorth;
 }
 
 void save(Board *b, string filename) {
@@ -370,10 +370,6 @@ void takeTurn(Board *b, Player *p) {
 			cout << "Not a valid command!" << endl;
 		}
 	}
-}
-
-void newGame(Board *board) {
-
 }
 
 int main(int argc, char* argv[]) {
