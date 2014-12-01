@@ -19,7 +19,8 @@ void takeInput() {
 
 
 }
-
+bool runMain = true;
+bool isTesting = false;
 void takeTurn(Board *b, Player *p) {
 
 	bool rolled = false;
@@ -40,7 +41,7 @@ void takeTurn(Board *b, Player *p) {
 		if (!cin) {
 			// READ ERROR
 		}
-
+        
 		if (command == "next") {
 			cout << endl << endl;
 			b->incrIterator();
@@ -49,12 +50,25 @@ void takeTurn(Board *b, Player *p) {
 
 		// *****ROLL*****
 		else if (!rolled && command == "roll") {
-			rolled = true;
-			int oldPos = p->getPos();
-			p->roll();
-			int newPos = p->getPos();
-			b->movePlayer(newPos, oldPos);
-
+            int newPos, oldPos;
+            if (isTesting == true) {
+                int x, y, sum;
+                cin >> x;
+                cin >> y;
+                sum = x + y;
+                rolled = true;
+                oldPos = p->getPos();
+                p->move(sum);
+                newPos = p->getPos();
+                b->movePlayer(newPos, oldPos);
+            }
+            else if (isTesting == false) {
+                rolled = true;
+                oldPos = p->getPos();
+                p->roll();
+                newPos = p->getPos();
+                b->movePlayer(newPos, oldPos);
+            }
 			cout << "You landed on " << b->getTile(newPos)->getName() << "." << endl;
 
 			if (newPos == 0) {
@@ -247,6 +261,7 @@ int main(int argc, char* argv[]) {
         //argv[1] is -load or -testing
         //if argv[1] is -load, argv[2] is a filename
         if (str == "-load") {
+            runMain = false;
             char* file = argv[2];
             ifstream  f;
             string name, owner;
@@ -312,15 +327,24 @@ int main(int argc, char* argv[]) {
                     }
                 }
             }
-
+            while (true) { // stop loop, TODO
+                // Players turn
+                Player *player = board.nextPlayer();
+                takeTurn(&board, player);
+            }
         }
         else if (str == "-testing") {
-            //enable testing
+            isTesting = true;
+            runMain = true;
         }
+        
     }
     
-    else {
+    if (runMain == true) {
         cout << "Welcome to BB7K!" << endl;
+        if (isTesting == true) {
+            cout << "Testing mode enabled" << endl;
+        }
         cout << "Enter number of players: (2-6) ";
         int n = 0;
 
@@ -370,12 +394,11 @@ int main(int argc, char* argv[]) {
                 i--;
             }
         }
-
         while (true) { // stop loop, TODO
             // Players turn
             Player *player = board.nextPlayer();
             takeTurn(&board, player);
         }
-        
     }
+    
 }
