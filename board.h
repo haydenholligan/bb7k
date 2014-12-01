@@ -9,7 +9,8 @@
 using namespace std;
 
 class Board {
-    Tile *board[40];
+public:
+	Tile *board[40];
 	int numPlayers;
     Player *players[6];
     Player *rollUp[4];
@@ -17,7 +18,6 @@ class Board {
     Vector propList[40];
     Vector coordList[40];
     char boardArr[89][56];
-public:
     Board();
 	Tile* getTile(string name);
 	Tile* getTile(int pos);
