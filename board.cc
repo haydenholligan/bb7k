@@ -238,7 +238,7 @@ Board::Board() {
     tmpArr[24] = "|       |                                                                       |       |";
     tmpArr[25] = "|-------|                                                                       |-------|";
     tmpArr[26] = "|UWP    |                             bb7k                                      |REV    |";
-    tmpArr[27] = "|       |                        ty asad bless u                                |       |";
+    tmpArr[27] = "|       |                                                                       |       |";
     tmpArr[28] = "|       |                                                                       |       |";
     tmpArr[29] = "|       |                                                                       |       |";
     tmpArr[30] = "|-------|                                                                       |-------|";
