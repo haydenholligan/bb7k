@@ -221,8 +221,37 @@ void takeTurn(Board *b, Player *p) {
 
 					}
 				}
+				else {
+					// offer property for $$$
+					istringstream ssReceive(receive);
+					if (ssReceive >> nReceive) {
+						Tile *t = b->getTile(give);
+						int i = 0;
+						if (t) i = t->getIndex();
 
-
+						if (i == 0 || i == 2 || i == 4 || i == 7 || i == 10 ||
+							i == 17 || i == 20 || i == 22 ||
+							i == 30 || i == 33 || i == 36 || i == 38) {
+							cout << "You cannot trade " << give << " for $" << nReceive << "." << endl;
+						}
+						else {
+							Building *building = (Building *)b->getTile(give);
+							if (building->getOwner()->getName() != p->getName()) {
+								cout << "You do not own " << give << endl;
+							}
+							else {
+								cout << partner << ", do you accept the trade? (y/n) ";
+								string response;
+								cin >> response;
+								if (response.at(0) == 'y') {
+									p->collect(nReceive);
+									b->getPlayer(partner)->pay(nReceive);
+									building->setOwner(b->getPlayer(partner));
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 		else if (command == "assets") {
