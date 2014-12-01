@@ -248,7 +248,62 @@ void assets(Board *b, Player *p) {
 
 }
 
-void save(Board *b) {
+void save(Board *b, string filename) {
+    cout << "start save" << endl;
+    ofstream ofs;
+    const char *cstr = filename.c_str();
+    ofs.open (cstr);
+    ofs << b->numPlayers << endl;
+    for (int i = 0; i < b->numPlayers; i++) {
+        cout << "for1, i=" << i << endl;
+        ofs << b->players[i]->name << " ";
+        ofs << b->players[i]->money << " ";
+        ofs << b->players[i]->pos;
+        if (b->players[i]->pos == 10) {
+            if (b->players[i]->turnsInTims == 0) {
+                ofs << " 0" << endl;
+            }
+            else if (b->players[i]->turnsInTims > 0) {
+                ofs << " 1 " << b->players[i]->turnsInTims << endl;
+            }
+        }
+        
+        else {
+            ofs << endl;
+        }
+    }
+    
+    cout << "end for1" << endl;
+    
+    for (int i = 0; i < 40; i++) {
+        cout << "for2, i=" << i << endl;
+        if (i==0 || i==2 || i==4 || i==7 || i==10 || i==17
+            || i==20 || i==22 || i==30 || i==33 || i==36 || i==38) {
+            continue;
+        }
+        
+        Building *bb = (Building *)b->getTile(i);
+        ofs << bb->getName() << " ";
+        if (bb->getOwner() == NULL) {
+            ofs << "BANK ";
+        }
+        else {
+            string owner = bb->getOwner()->getName();
+            ofs << owner << " ";
+        }
+        
+        if (i==5 || i==12 || i==15 || i==25 || i==28 || i==35) {
+            ofs << 0 << endl;
+            continue;
+        }
+        else if (bb->isMortgaged() == true) {
+            ofs << -1 << endl;
+        }
+        else {
+            AcademicBuilding *ab = (AcademicBuilding *)bb;
+            ofs << ab->getNumImproves() << endl;
+        }
+    }
 
 }
 
@@ -266,7 +321,7 @@ void takeTurn(Board *b, Player *p) {
 		cout << "Options: help, ";
 		if (!rolled) cout << "roll, ";
 		cout << "next, trade, improve, mortgage, unmortgage, assets, save" << endl;
-
+        string filename;
 		string command;
 		cin >> command;
 		if (!cin) {
@@ -296,8 +351,9 @@ void takeTurn(Board *b, Player *p) {
 			assets(b, p);
 		}
 		else if (command == "save") {
-			save(b);
-		}
+            cin >> filename;
+			save(b, filename);
+        }
 		else {
 			cout << "Not a valid command!" << endl;
 		}
@@ -363,14 +419,13 @@ int main(int argc, char* argv[]) {
             } //end for
             
             for (int i = 0; i < 40; i++) {
-                if (i==0 || i==2 || i==4 || i==7 || i==10 || i==17 || i==20 || i==22 || i==30 || i==33 || i==36 || i==38) {
-                    cout << "Unbuyable building: " << i << endl;
+                if (i==0 || i==2 || i==4 || i==7 || i==10 || i==17
+                    || i==20 || i==22 || i==30 || i==33 || i==36 || i==38) {
                     continue;
                 }
             
                 f>>name;
                 f>>owner;
-                cout << "Name, owner: " << name << " " << owner << endl;
                     Player *p1 = board.getPlayer(owner);
                     Building *bb = (Building *)board.getTile(i);
                     bb->setOwner(p1);
