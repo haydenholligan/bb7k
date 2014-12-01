@@ -18,15 +18,6 @@ using namespace std;
 bool runMain = true;
 bool isTesting = false;
 
-void bankruptOption(Board *b, Player *p) {
-	cout << "Options: bankrupt, mortgage, trade" << endl;
-	string answer;
-	cin >> answer;
-	if (answer == "bankrupt") {
-
-	}
-}
-
 void roll(Board *b, Player *p) {
 	int newPos, oldPos;
 	if (isTesting == true) {
@@ -68,7 +59,7 @@ void roll(Board *b, Player *p) {
 		istringstream ss(option);
 		int n;
 		ss >> n;
-		p->payTution(n);
+		if (!p->payTution(n)) b->removePlayer(p, NULL);
 	}
 
 	else if (newPos == 10) {
@@ -92,7 +83,7 @@ void roll(Board *b, Player *p) {
 	else if (newPos == 38) {
 		// COOP FEE
 		cout << "You must pay $150" << endl;
-		if (!p->pay(150)) bankruptOption(b, p);
+		if (!p->pay(150)) b->removePlayer(p, NULL);
 	}
 	else {
 		// otherwise, player has landed on property (academic building, residence, or gym)
@@ -120,8 +111,12 @@ void roll(Board *b, Player *p) {
 			Player *owner = building->getOwner();
 			double fee = building->getFee();
 			cout << "You must pay " << fee << " to Player " << owner->getPiece() << endl;
-			p->pay(fee);
-			owner->collect(fee);
+			if (p->pay(fee)) {
+				owner->collect(fee);
+			}
+			else {
+				b->removePlayer(p, owner);
+			}
 		}
 	}
 }
@@ -244,6 +239,18 @@ void trade(Board *b, Player *p) {
 	}
 }
 
+void help() {
+	cout << "Commands" << endl;
+	cout << "    roll: rolls 2 dice and moves" << endl;
+	cout << "    next: finish turn" << endl;
+	cout << "    trade <name> <give> <receive>: trade with <name>, offering <give> in return for <receive>" << endl;
+	cout << "    improve <property> buy/sell: buys/sells improvement on <property>" << endl;
+	cout << "    mortgage <property>: mortgages a <property>" << endl;
+	cout << "    unmortgage <property>: unmortgages a <property>" << endl;
+	cout << "    assets: displays your assets" << endl;
+	cout << "    save <filename>: saves current game under <filename>" << endl;
+}
+
 void assets(Board *b, Player *p) {
 
 }
@@ -254,6 +261,9 @@ void save(Board *b) {
 
 void takeTurn(Board *b, Player *p) {
 
+	if (p->turnsInTims > 0) {
+		if (!p->tryToLeaveTims(b)) return;
+	}
 	bool rolled = false;
 
 	// DRAW BOARD
@@ -273,7 +283,10 @@ void takeTurn(Board *b, Player *p) {
 			// READ ERROR
 		}
 
-		if (command == "next") {
+		if (command == "help") {
+			help();
+		}
+		else if (command == "next") {
 			cout << endl << endl;
 			b->incrIterator();
 			return;
@@ -288,7 +301,6 @@ void takeTurn(Board *b, Player *p) {
 		else if (command == "mortgage" || command == "unmortgage") {
 			mortgage(b, p, command);
 		}
-
 		else if (command == "trade") {
 			trade(b, p);
 		}

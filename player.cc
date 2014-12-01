@@ -50,8 +50,7 @@ void Player::collect(double amount) {
 }
 
 void Player::purchase(Building *b) {
-	pay(b->getPurchaseCost());
-	b->purchase(this);
+	if (pay(b->getPurchaseCost())) b->purchase(this);
 }
 
 void Player::improve(AcademicBuilding *ab, bool buy) {
@@ -159,27 +158,43 @@ void Player::goToTims() {
 	turnsInTims++;
 }
 
-bool Player::tryToLeaveTims() {
+bool Player::tryToLeaveTims(Board *b) {
 	if (turnsInTims >= 4) {
 		turnsInTims = 0;
 		return true;
 	}
-	else {
-		turnsInTims++;
-		return false;
+	else if (hasRollupCup) {
+		cout << "You have a rollup cup you can use to get out of the DC Tims Line! Use it? (y/n) ";
+		string answer;
+		cin >> answer;
+		if (answer.at(0) == 'y') {
+			hasRollupCup = false;
+			for (int i = 0; i < 4; i++) {
+				if (b->rollUp[i]->getPiece() == piece) {
+					b->rollUp[i] = NULL;
+				}
+			}
+			turnsInTims = 0;
+			return true;
+		}
 	}
 	// player can also use rollup cup or pay money to escape Tims
 	//adjust net worth
 	// TODO
+	cout << 3 - turnsInTims << " more turns in Tims" << endl;
+	turnsInTims++;
+	return false;
 }
 
-void Player::payTution(int option) {
+bool Player::payTution(int option) {
 	if (option == 1) {
-		pay(300);
+		return pay(300);
+
 	}
 	else if (option == 2) {
-        pay(netWorth * 0.10);
+        return pay(netWorth * 0.10);
 	}
+	return false;
 }
 
 void Player::SLC(Board *board) {

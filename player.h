@@ -37,8 +37,8 @@ public:
     void roll();
 	void giveRollupCup();
     void goToTims();
-    bool tryToLeaveTims();
-    void payTution(int option);
+    bool tryToLeaveTims(Board *b);
+    bool payTution(int option);
     void SLC(Board *board);
     void NeedlesHall(Board *board);
 };

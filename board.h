@@ -18,11 +18,13 @@ public:
     Vector propList[40];
     Vector coordList[40];
     char boardArr[89][56];
+
     Board();
 	Tile* getTile(string name);
 	Tile* getTile(int pos);
 	Player* addPlayer(string name, char piece, int pos);
     void movePlayer(int tile, int oldTile);
+	void removePlayer(Player *p, Player *owed);
     void incrIterator();
     void addImprove(int tile);
     void removeImprove(int tile);

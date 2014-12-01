@@ -295,6 +295,33 @@ Player* Board::addPlayer(std::string name, char piece, int pos) {
     boardArr[(coordList[oldTile].x)+iterator][coordList[oldTile].y] = ' ';
 }
 
+ void Board::removePlayer(Player *p, Player *owed) {
+	 cout << p->getName() << " is declaring bankruptcy" << endl;
+	 int it = iterator;
+	 players[it] = NULL;
+	 while (it < numPlayers - 1) {
+		 players[it] = players[it + 1];
+		 it++;
+	 }
+	 numPlayers--;
+
+	 // all their buildings 
+	 for (int i = 0; i < 40; i++) {
+		 if (i == 0 || i == 2 || i == 4 || i == 7 || i == 10 ||
+			 i == 17 || i == 20 || i == 22 ||
+			 i == 30 || i == 33 || i == 36 || i == 38) {
+		 }
+		 else{
+			 Building *b = (Building *)board[i];
+			 if (b->getOwner()->getPiece() == p->getPiece()) {
+				 b->setOwner(owed); // bank becomes owner if owner is NULL
+			 }
+		 }
+	 }
+	 
+	 delete p;
+ }
+
 void Board::addImprove(int tile) {
     AcademicBuilding *ab = (AcademicBuilding *)board[tile];
     int yyy = ab->getNumImproves();
