@@ -15,10 +15,6 @@
 
 using namespace std;
 
-void takeInput() {
-
-
-}
 bool runMain = true;
 bool isTesting = false;
 void takeTurn(Board *b, Player *p) {
