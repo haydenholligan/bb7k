@@ -400,7 +400,6 @@ int main(int argc, char* argv[]) {
             pieces[6] = 'L';
             pieces[7] = 'T';
             
-
             f.open(file);
             
             if (!f.is_open()) {
@@ -429,7 +428,6 @@ int main(int argc, char* argv[]) {
                 }
                 listofPlayers[i] = p;
             } //end for
-            
             for (int i = 0; i < 40; i++) {
                 if (i==0 || i==2 || i==4 || i==7 || i==10 || i==17
                     || i==20 || i==22 || i==30 || i==33 || i==36 || i==38) {
@@ -451,13 +449,15 @@ int main(int argc, char* argv[]) {
                     }
                 
             }
-            
-            while (true) { // stop loop, TODO
+            while (true) {
+                // stop loop, TODO
                 // Players turn
                 Player *player = board.nextPlayer();
                 takeTurn(&board, player);
             }
+            
         }
+        
         else if (str == "-testing") {
             isTesting = true;
             runMain = true;
