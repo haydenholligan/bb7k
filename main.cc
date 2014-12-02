@@ -373,14 +373,25 @@ void takeTurn(Board *b, Player *p) {
 }
 
 int main(int argc, char* argv[]) {
-    if (argc > 1) {
-        string str(argv[1]);
+    if (argc == 2 || argc == 4) {
+            isTesting = true;
+        }
+    
+    if (argc == 3 || argc == 4) {
+        string str1(argv[1]);
+        char* file;
+        //string str(argv[1]);
         //argv[0] is the program
         //argv[1] is -load or -testing
         //if argv[1] is -load, argv[2] is a filename
-        if (str == "-load") {
+        if (str1 == "-load") {
+            file = argv[2];
+        }
+        else {
+            file = argv[3];
+        }
             runMain = false;
-            char* file = argv[2];
+            
             ifstream  f;
             string name, owner;
             int numPlayers, money, position, dc, dcnum, improvements;
@@ -454,12 +465,9 @@ int main(int argc, char* argv[]) {
             
         }
         
-        else if (str == "-testing") {
-            isTesting = true;
-            runMain = true;
-        }
         
-    }
+        
+    
     
     if (runMain == true) {
         cout << "Welcome to BB7K!" << endl;
